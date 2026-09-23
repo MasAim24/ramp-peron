@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #09090b;
+    color: #f4f4f5;
+  }
+}
+
+/* Custom Corporate Digital Display Styling */
+.digital-lcd {
+  font-family: var(--font-mono);
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.digital-lcd-amber {
+  font-family: var(--font-mono);
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+/* Custom Scrollbar for Corporate UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #18181b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Print Specific Rules for Thermal 80mm and Letter Tickets */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt, #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 78mm;
+    margin: 0;
+    padding: 2mm;
+    color: #000000 !important;
+    background: #ffffff !important;
+    font-family: 'JetBrains Mono', monospace, monospace !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
