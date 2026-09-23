@@ -10,7 +10,8 @@ export default defineConfig({
   ],
   base: './', // Necessary for Electron file:// protocol resolution
   server: {
-    port: 5173,
-    strictPort: true
+    host: '0.0.0.0', // Listen on all local and LAN IP addresses (e.g. 192.168.101.4)
+    port: 5180,
+    strictPort: false
   }
 })

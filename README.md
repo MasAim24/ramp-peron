@@ -88,7 +88,9 @@ npm install
 ```bash
 npm run dev
 ```
-Buka browser pada alamat `http://localhost:5173`.
+Aplikasi akan aktif di:
+- **Local:** `http://localhost:5180` (atau `http://127.0.0.1:5180`)
+- **Network / LAN IP:** `http://192.168.101.4:5180` (dapat diakses dari tablet/HP/perangkat lain di jaringan yang sama)
 
 ### 3. Menjalankan di Mode Desktop (Electron Native)
 ```bash
