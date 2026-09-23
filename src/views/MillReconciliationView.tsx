@@ -7,8 +7,8 @@ import {
   DollarSign, 
   FileCheck, 
   Calendar, 
-  Building2,
-  Clock
+  Building2, 
+  Clock 
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { WeighingRecord, OutboundMillResult } from '../types';
@@ -64,7 +64,6 @@ export const MillReconciliationView: React.FC = () => {
   const millPrice = activeRecord ? activeRecord.pricePerKg : 0;
   const grossIncome = millAcceptedNet * millPrice;
   const totalTransportFee = Math.round(millAcceptedNet * transportFeePerKg);
-  // Estimate cost of goods bought from farmers (approx Rp 220-250 cheaper per kg)
   const estimatedCost = Math.round(rampNet * (millPrice - 230));
   const netMargin = grossIncome - (estimatedCost + totalTransportFee);
 
@@ -111,53 +110,53 @@ export const MillReconciliationView: React.FC = () => {
     <div className="space-y-5">
       {/* Top Header & Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
           <span className="text-zinc-500 text-xs font-semibold block mb-1">TOTAL TBS TERKIRIM KE PKS</span>
           <div className="flex items-baseline justify-between">
-            <span className="text-xl font-bold font-mono text-zinc-100">{formatKg(totalOutboundKg)}</span>
-            <span className="text-xs text-zinc-400 font-mono">({(totalOutboundKg / 1000).toFixed(1)} Ton)</span>
+            <span className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100">{formatKg(totalOutboundKg)}</span>
+            <span className="text-xs text-zinc-500 font-mono">({(totalOutboundKg / 1000).toFixed(1)} Ton)</span>
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">{outboundRecords.length} Truk Armada SPB</span>
         </div>
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
           <span className="text-zinc-500 text-xs font-semibold block mb-1">REKONSILIASI SELESAI</span>
           <div className="flex items-baseline justify-between">
-            <span className="text-xl font-bold font-mono text-emerald-400">
+            <span className="text-xl font-bold font-mono text-emerald-700 dark:text-emerald-400">
               {totalReconciled.length} / {outboundRecords.length}
             </span>
-            <span className="text-xs text-zinc-400">SPB Valid</span>
+            <span className="text-xs text-zinc-500">SPB Valid</span>
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">Telah cocok faktur PKS</span>
         </div>
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
           <span className="text-zinc-500 text-xs font-semibold block mb-1">RATA-RATA SUSUT PERJALANAN</span>
           <div className="flex items-baseline justify-between">
-            <span className={`text-xl font-bold font-mono ${avgShrinkage > 0.6 ? 'text-amber-400' : 'text-emerald-400'}`}>
+            <span className={`text-xl font-bold font-mono ${avgShrinkage > 0.6 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-700 dark:text-emerald-400'}`}>
               {formatPercent(avgShrinkage)}
             </span>
-            <span className="text-xs text-zinc-400">Toleransi &le; 0.6%</span>
+            <span className="text-xs text-zinc-500">Toleransi &le; 0.6%</span>
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">Netto Ramp vs Netto PKS</span>
         </div>
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
           <span className="text-zinc-500 text-xs font-semibold block mb-1">ESTIMASI MARGIN LABA PERON</span>
           <div className="flex items-baseline justify-between">
-            <span className="text-xl font-bold font-mono text-emerald-400">{formatRupiah(totalMargin)}</span>
-            <span className="text-xs text-emerald-500 font-semibold">Net Profit</span>
+            <span className="text-xl font-bold font-mono text-emerald-700 dark:text-emerald-400">{formatRupiah(totalMargin)}</span>
+            <span className="text-xs text-emerald-700 dark:text-emerald-500 font-semibold">Net Profit</span>
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">Setelah beban solar & armada</span>
         </div>
       </div>
 
       {/* Main List Table */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+        <div className="px-5 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Truck className="w-4 h-4 text-emerald-400" />
-            <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+            <Truck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
               Daftar Surat Pengantar Buah (SPB) & Pengiriman ke PKS
             </h2>
           </div>
@@ -166,7 +165,7 @@ export const MillReconciliationView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-zinc-950/80 border-b border-zinc-800 text-zinc-400 font-semibold font-mono text-[11px]">
+              <tr className="bg-zinc-100 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-semibold font-mono text-[11px]">
                 <th className="py-2.5 px-3">NO SPB & TIKET</th>
                 <th className="py-2.5 px-3">TANGGAL</th>
                 <th className="py-2.5 px-3">PKS TUJUAN</th>
@@ -179,7 +178,7 @@ export const MillReconciliationView: React.FC = () => {
                 <th className="py-2.5 px-3 text-center">AKSI</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800/60">
+            <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/60 font-sans">
               {outboundRecords.length === 0 ? (
                 <tr>
                   <td colSpan={10} className="py-8 text-center text-zinc-500">
@@ -191,16 +190,16 @@ export const MillReconciliationView: React.FC = () => {
                   const res = rec.millResult;
                   const hasResult = !!res?.isSettled;
                   return (
-                    <tr key={rec.id} className="hover:bg-zinc-850/50 transition-colors">
+                    <tr key={rec.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-850/50 transition-colors">
                       <td className="py-3 px-3 font-mono">
-                        <strong className="text-zinc-200 block">{rec.spbNumber || rec.ticketNumber}</strong>
+                        <strong className="text-zinc-900 dark:text-zinc-200 block">{rec.spbNumber || rec.ticketNumber}</strong>
                         <span className="text-[10px] text-zinc-500">{rec.ticketNumber}</span>
                       </td>
-                      <td className="py-3 px-3 text-zinc-400 whitespace-nowrap">
+                      <td className="py-3 px-3 text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
                         {formatDateTime(rec.timestampGross)}
                       </td>
                       <td className="py-3 px-3">
-                        <span className="font-semibold text-zinc-200 block truncate max-w-[160px]">
+                        <span className="font-semibold text-zinc-900 dark:text-zinc-200 block truncate max-w-[160px]">
                           {rec.millName}
                         </span>
                         <span className="text-[11px] text-zinc-500 font-mono">
@@ -208,23 +207,23 @@ export const MillReconciliationView: React.FC = () => {
                         </span>
                       </td>
                       <td className="py-3 px-3">
-                        <span className="font-mono font-bold text-zinc-200 block">{rec.vehiclePlate}</span>
-                        <span className="text-[11px] text-zinc-400">{rec.driverName}</span>
+                        <span className="font-mono font-bold text-zinc-900 dark:text-zinc-200 block">{rec.vehiclePlate}</span>
+                        <span className="text-[11px] text-zinc-600 dark:text-zinc-400">{rec.driverName}</span>
                       </td>
-                      <td className="py-3 px-3 text-right font-mono font-semibold text-zinc-200">
+                      <td className="py-3 px-3 text-right font-mono font-semibold text-zinc-900 dark:text-zinc-200">
                         {formatKg(rec.netCleanWeight)}
                       </td>
                       <td className="py-3 px-3 text-right font-mono">
                         {hasResult ? (
-                          <span className="text-zinc-100 font-semibold">{formatKg(res.millNetKg)}</span>
+                          <span className="text-zinc-900 dark:text-zinc-100 font-semibold">{formatKg(res.millNetKg)}</span>
                         ) : (
-                          <span className="text-zinc-600 italic">Menunggu Faktur PKS</span>
+                          <span className="text-zinc-500 italic">Menunggu Faktur PKS</span>
                         )}
                       </td>
                       <td className="py-3 px-3 text-right font-mono">
                         {hasResult ? (
                           <div>
-                            <span className={`font-bold block ${res.shrinkagePercent > 0.6 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                            <span className={`font-bold block ${res.shrinkagePercent > 0.6 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-700 dark:text-emerald-400'}`}>
                               {res.shrinkageKg} kg ({formatPercent(res.shrinkagePercent)})
                             </span>
                             <span className="text-[10px] text-zinc-500">
@@ -232,21 +231,21 @@ export const MillReconciliationView: React.FC = () => {
                             </span>
                           </div>
                         ) : (
-                          <span className="text-zinc-600">-</span>
+                          <span className="text-zinc-500">-</span>
                         )}
                       </td>
                       <td className="py-3 px-3 text-right font-mono font-bold">
                         {hasResult ? (
-                          <span className="text-emerald-400">{formatRupiah(res.netMargin)}</span>
+                          <span className="text-emerald-700 dark:text-emerald-400">{formatRupiah(res.netMargin)}</span>
                         ) : (
-                          <span className="text-zinc-600">-</span>
+                          <span className="text-zinc-500">-</span>
                         )}
                       </td>
                       <td className="py-3 px-3 text-center">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                           hasResult 
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
-                            : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                            ? 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30' 
+                            : 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30'
                         }`}>
                           {hasResult ? 'COCOK' : 'MENUNGGU PKS'}
                         </span>
@@ -254,7 +253,7 @@ export const MillReconciliationView: React.FC = () => {
                       <td className="py-3 px-3 text-center">
                         <button
                           onClick={() => handleOpenForm(rec)}
-                          className="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-colors cursor-pointer border border-zinc-700"
+                          className="px-2.5 py-1 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 text-xs font-semibold transition-colors cursor-pointer border border-zinc-300 dark:border-zinc-700 shadow-2xs"
                         >
                           {hasResult ? 'Edit Faktur PKS' : 'Input Hasil PKS'}
                         </button>
@@ -270,18 +269,18 @@ export const MillReconciliationView: React.FC = () => {
 
       {/* Modal / Dialog for PKS Result Input */}
       {activeRecord && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl max-w-xl w-full overflow-hidden">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl max-w-xl w-full overflow-hidden transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <FileCheck className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-sm font-bold text-zinc-100 uppercase">
+                <FileCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase">
                   Input Rekonsiliasi Timbangan PKS ({activeRecord.spbNumber || activeRecord.ticketNumber})
                 </h3>
               </div>
               <button
                 onClick={() => setActiveRecord(null)}
-                className="text-zinc-400 hover:text-white text-xs font-semibold cursor-pointer"
+                className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-xs font-semibold cursor-pointer"
               >
                 ✕ Tutup
               </button>
@@ -289,25 +288,25 @@ export const MillReconciliationView: React.FC = () => {
 
             <form onSubmit={handleSubmitResult} className="p-5 space-y-4">
               {/* Baseline Ramp Data Summary */}
-              <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 grid grid-cols-3 gap-2 text-xs">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 grid grid-cols-3 gap-2 text-xs">
                 <div>
                   <span className="text-zinc-500 block">PKS Tujuan:</span>
-                  <strong className="text-zinc-200 truncate block">{activeRecord.millName}</strong>
+                  <strong className="text-zinc-900 dark:text-zinc-200 truncate block">{activeRecord.millName}</strong>
                 </div>
                 <div>
                   <span className="text-zinc-500 block">Nopol Armada:</span>
-                  <strong className="text-zinc-200 font-mono">{activeRecord.vehiclePlate}</strong>
+                  <strong className="text-zinc-900 dark:text-zinc-200 font-mono">{activeRecord.vehiclePlate}</strong>
                 </div>
                 <div>
                   <span className="text-zinc-500 block">Netto Ramp:</span>
-                  <strong className="text-emerald-400 font-mono text-sm">{formatKg(activeRecord.netCleanWeight)}</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400 font-mono text-sm">{formatKg(activeRecord.netCleanWeight)}</strong>
                 </div>
               </div>
 
               {/* Form Input: Mill Ticket Data */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                  <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                     Bruto di Pabrik PKS (Kg):
                   </label>
                   <input
@@ -316,12 +315,12 @@ export const MillReconciliationView: React.FC = () => {
                     min="1"
                     value={millGrossInput || ''}
                     onChange={(e) => setMillGrossInput(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                  <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                     Tara di Pabrik PKS (Kg):
                   </label>
                   <input
@@ -330,14 +329,14 @@ export const MillReconciliationView: React.FC = () => {
                     min="1"
                     value={millTareInput || ''}
                     onChange={(e) => setMillTareInput(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                  <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                     Sortasi Potongan PKS (%):
                   </label>
                   <input
@@ -346,7 +345,7 @@ export const MillReconciliationView: React.FC = () => {
                     min="0"
                     value={millSortPercent}
                     onChange={(e) => setMillSortPercent(parseFloat(e.target.value) || 0)}
-                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
                   />
                   <span className="text-[10px] text-zinc-500 mt-1 block">
                     Potong: {millDeductionKg} kg
@@ -354,7 +353,7 @@ export const MillReconciliationView: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                  <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                     Ongkos Angkut Truk (Rp/Kg):
                   </label>
                   <input
@@ -362,7 +361,7 @@ export const MillReconciliationView: React.FC = () => {
                     min="0"
                     value={transportFeePerKg}
                     onChange={(e) => setTransportFeePerKg(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
                   />
                   <span className="text-[10px] text-zinc-500 mt-1 block">
                     Total Ongkos: {formatRupiah(totalTransportFee)}
@@ -373,12 +372,12 @@ export const MillReconciliationView: React.FC = () => {
               {/* Shrinkage & Margin Alert Preview */}
               <div className={`p-3 rounded-lg border text-xs space-y-1.5 ${
                 isHighShrinkage
-                  ? 'bg-amber-950/40 border-amber-700/60 text-amber-200'
-                  : 'bg-emerald-950/40 border-emerald-800/60 text-emerald-200'
+                  ? 'bg-amber-50 border-amber-300 text-amber-900 dark:bg-amber-950/40 dark:border-amber-700/60 dark:text-amber-200'
+                  : 'bg-emerald-50 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200'
               }`}>
                 <div className="flex justify-between font-semibold">
                   <span>Netto Diterima Pabrik (PKS):</span>
-                  <span className="font-mono text-sm font-bold text-zinc-100">{formatKg(millAcceptedNet)}</span>
+                  <span className="font-mono text-sm font-bold text-zinc-900 dark:text-zinc-100">{formatKg(millAcceptedNet)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Susut Pengiriman (Netto Ramp - Netto PKS):</span>
@@ -388,18 +387,18 @@ export const MillReconciliationView: React.FC = () => {
                 </div>
                 <div className="flex justify-between text-[11px]">
                   <span>Status Toleransi Susut:</span>
-                  <strong className={isHighShrinkage ? 'text-amber-400 font-bold' : 'text-emerald-400'}>
+                  <strong className={isHighShrinkage ? 'text-amber-700 dark:text-amber-400 font-bold' : 'text-emerald-700 dark:text-emerald-400'}>
                     {isHighShrinkage ? `SUSUT TINGGI (> Toleransi ${tolerance}%)` : `AMAN (≤ Toleransi ${tolerance}%)`}
                   </strong>
                 </div>
-                <div className="flex justify-between border-t border-emerald-800/40 pt-1 text-zinc-100 font-bold">
+                <div className="flex justify-between border-t border-emerald-200 dark:border-emerald-800/40 pt-1 text-zinc-900 dark:text-zinc-100 font-bold">
                   <span>Estimasi Laba Bersih Peron dari Truk Ini:</span>
-                  <span className="font-mono text-emerald-400 font-extrabold text-sm">{formatRupiah(netMargin)}</span>
+                  <span className="font-mono text-emerald-700 dark:text-emerald-400 font-extrabold text-sm">{formatRupiah(netMargin)}</span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
                   Catatan Faktur PKS:
                 </label>
                 <input
@@ -407,7 +406,7 @@ export const MillReconciliationView: React.FC = () => {
                   placeholder="Contoh: No Faktur PKS: INV-PKS-9912, Sortasi fraksi 0: 1.5%"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-zinc-300 text-xs focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-lg text-zinc-800 dark:text-zinc-300 text-xs focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -415,7 +414,7 @@ export const MillReconciliationView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setActiveRecord(null)}
-                  className="flex-1 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 text-xs font-semibold transition-colors cursor-pointer border border-zinc-300 dark:border-zinc-700"
                 >
                   Batal
                 </button>

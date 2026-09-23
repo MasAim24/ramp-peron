@@ -151,7 +151,6 @@ export const WeighbridgeView: React.FC = () => {
     setSelectedSupplierId('');
     setNotes('');
 
-    // Ask to open print if wanted or notification
     setSelectedRecordForPrint(newRecord);
   };
 
@@ -177,7 +176,6 @@ export const WeighbridgeView: React.FC = () => {
       notes || activePendingRecord.notes
     );
 
-    // Refresh state
     const updated = {
       ...activePendingRecord,
       tareWeight: tareInput,
@@ -287,13 +285,13 @@ export const WeighbridgeView: React.FC = () => {
         {/* Left Column: Weighing Forms (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
           {/* Operation Mode Selector Header */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-2 flex items-center gap-2">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-2 flex items-center gap-2 shadow-2xs transition-colors">
             <button
               onClick={() => { setActiveMode('INBOUND'); setActivePendingRecord(null); }}
               className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 activeMode === 'INBOUND'
-                  ? 'bg-emerald-600 text-white shadow-md'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800'
               }`}
             >
               <Scale className="w-4 h-4" />
@@ -304,8 +302,8 @@ export const WeighbridgeView: React.FC = () => {
               onClick={() => { setActiveMode('OUTBOUND'); setActivePendingRecord(null); }}
               className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 activeMode === 'OUTBOUND'
-                  ? 'bg-emerald-600 text-white shadow-md'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800'
               }`}
             >
               <Truck className="w-4 h-4" />
@@ -315,11 +313,11 @@ export const WeighbridgeView: React.FC = () => {
 
           {/* ACTIVE FORM: INBOUND WEIGHING */}
           {activeMode === 'INBOUND' && (
-            <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-              <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+              <div className="px-5 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
-                  <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+                  <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
                     {activePendingRecord 
                       ? `Penimbangan 2 (Tara & Sortasi) - ${activePendingRecord.ticketNumber}` 
                       : 'Penimbangan 1 (Bruto / Muatan Masuk)'}
@@ -328,7 +326,7 @@ export const WeighbridgeView: React.FC = () => {
                 {activePendingRecord && (
                   <button
                     onClick={() => setActivePendingRecord(null)}
-                    className="text-xs text-rose-400 hover:text-rose-300 font-semibold cursor-pointer"
+                    className="text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-semibold cursor-pointer"
                   >
                     Batal Timbang Tara
                   </button>
@@ -341,13 +339,13 @@ export const WeighbridgeView: React.FC = () => {
                   {/* Row 1: Supplier & Grade */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                         Pilih Petani / Kelompok Tani:
                       </label>
                       <select
                         value={selectedSupplierId}
                         onChange={(e) => handleSupplierChange(e.target.value)}
-                        className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
+                        className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
                       >
                         <option value="">-- Petani Bebas / Non-Mitra --</option>
                         {suppliers.map(s => (
@@ -357,7 +355,7 @@ export const WeighbridgeView: React.FC = () => {
                         ))}
                       </select>
                       {selectedSupplier && selectedSupplier.debtBalance > 0 && (
-                        <div className="text-[11px] text-amber-400 mt-1 flex items-center gap-1">
+                        <div className="text-[11px] text-amber-600 dark:text-amber-400 mt-1 flex items-center gap-1 font-medium">
                           <AlertTriangle className="w-3 h-3" />
                           <span>Petani memiliki saldo kasbon: <strong>{formatRupiah(selectedSupplier.debtBalance)}</strong></span>
                         </div>
@@ -365,7 +363,7 @@ export const WeighbridgeView: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                         Fraksi / Mutu TBS:
                       </label>
                       <div className="grid grid-cols-3 gap-1.5">
@@ -376,8 +374,8 @@ export const WeighbridgeView: React.FC = () => {
                             onClick={() => handleGradeChange(grade)}
                             className={`py-1.5 px-2 rounded text-xs font-semibold border transition-all cursor-pointer ${
                               fruitGrade === grade
-                                ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300'
-                                : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-zinc-200'
+                                ? 'bg-emerald-50 border-emerald-500 text-emerald-800 dark:bg-emerald-950/80 dark:border-emerald-500 dark:text-emerald-300'
+                                : 'bg-zinc-50 dark:bg-zinc-950 border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
                             }`}
                           >
                             {grade.replace('_', ' ')}
@@ -390,7 +388,7 @@ export const WeighbridgeView: React.FC = () => {
                   {/* Row 2: Vehicle & Driver */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                         Nomor Polisi Truk:
                       </label>
                       <div className="flex gap-2">
@@ -400,7 +398,7 @@ export const WeighbridgeView: React.FC = () => {
                           placeholder="Contoh: BM 8821 QC"
                           value={vehiclePlate}
                           onChange={(e) => setVehiclePlate(e.target.value.toUpperCase())}
-                          className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm tracking-wider uppercase focus:outline-none focus:border-emerald-500"
+                          className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm tracking-wider uppercase focus:outline-none focus:border-emerald-500"
                         />
                       </div>
                       {/* Quick preset plate tags */}
@@ -410,7 +408,7 @@ export const WeighbridgeView: React.FC = () => {
                             key={v.id}
                             type="button"
                             onClick={() => handleVehicleSelect(v.plateNumber)}
-                            className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:bg-zinc-700 border border-zinc-700 font-mono cursor-pointer"
+                            className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 font-mono cursor-pointer"
                           >
                             {v.plateNumber}
                           </button>
@@ -419,7 +417,7 @@ export const WeighbridgeView: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                         Nama Supir Pengantar:
                       </label>
                       <input
@@ -427,7 +425,7 @@ export const WeighbridgeView: React.FC = () => {
                         placeholder="Nama supir..."
                         value={driverName}
                         onChange={(e) => setDriverName(e.target.value)}
-                        className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
+                        className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                   </div>
@@ -435,7 +433,7 @@ export const WeighbridgeView: React.FC = () => {
                   {/* Row 3: Weight Capture & Price */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                     <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                         Berat Bruto Masuk (Kg):
                       </label>
                       <div className="flex items-center gap-2">
@@ -446,12 +444,12 @@ export const WeighbridgeView: React.FC = () => {
                           placeholder="0"
                           value={grossInput || ''}
                           onChange={(e) => setGrossInput(parseInt(e.target.value, 10) || 0)}
-                          className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-lg text-emerald-400 font-mono text-lg font-bold focus:outline-none focus:border-emerald-500"
+                          className="w-full px-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-emerald-600 dark:text-emerald-400 font-mono text-lg font-bold focus:outline-none focus:border-emerald-500"
                         />
                         <button
                           type="button"
                           onClick={() => setGrossInput(liveWeight)}
-                          className="px-3 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-emerald-400 border border-zinc-700 text-xs font-bold whitespace-nowrap cursor-pointer"
+                          className="px-3 py-2.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-emerald-700 dark:text-emerald-400 border border-zinc-300 dark:border-zinc-700 text-xs font-bold whitespace-nowrap cursor-pointer shadow-2xs"
                         >
                           Salin ({liveWeight} kg)
                         </button>
@@ -459,7 +457,7 @@ export const WeighbridgeView: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                         Harga Beli Peron (Rp/Kg):
                       </label>
                       <input
@@ -467,7 +465,7 @@ export const WeighbridgeView: React.FC = () => {
                         min="1"
                         value={priceOverride || ''}
                         onChange={(e) => setPriceOverride(parseInt(e.target.value, 10) || 0)}
-                        className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-base font-semibold focus:outline-none focus:border-emerald-500"
+                        className="w-full px-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-base font-semibold focus:outline-none focus:border-emerald-500"
                       />
                       <span className="text-[11px] text-zinc-500 mt-1 block">
                         Harga acuan grade: {formatRupiah(priceOverride)}/kg
@@ -477,7 +475,7 @@ export const WeighbridgeView: React.FC = () => {
 
                   {/* Notes & Submit */}
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                    <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
                       Catatan / Keterangan Muatan:
                     </label>
                     <input
@@ -485,7 +483,7 @@ export const WeighbridgeView: React.FC = () => {
                       placeholder="Contoh: Buah blok timur, panen pagi"
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      className="w-full px-3 py-1.5 bg-zinc-950 border border-zinc-800 rounded-lg text-zinc-300 text-xs focus:outline-none focus:border-emerald-500"
+                      className="w-full px-3 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-lg text-zinc-800 dark:text-zinc-300 text-xs focus:outline-none focus:border-emerald-500"
                     />
                   </div>
 
@@ -503,28 +501,28 @@ export const WeighbridgeView: React.FC = () => {
                 /* FORM 2: TARE & SORTATION ENTRY */
                 <form onSubmit={handleCompleteTara} className="p-5 space-y-4">
                   {/* Summary of Gross */}
-                  <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                  <div className="p-3 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                     <div>
                       <span className="text-zinc-500 block">No Tiket:</span>
-                      <strong className="text-zinc-200 font-mono">{activePendingRecord.ticketNumber}</strong>
+                      <strong className="text-zinc-900 dark:text-zinc-200 font-mono">{activePendingRecord.ticketNumber}</strong>
                     </div>
                     <div>
                       <span className="text-zinc-500 block">Nopol Truk:</span>
-                      <strong className="text-zinc-200 font-mono">{activePendingRecord.vehiclePlate}</strong>
+                      <strong className="text-zinc-900 dark:text-zinc-200 font-mono">{activePendingRecord.vehiclePlate}</strong>
                     </div>
                     <div>
                       <span className="text-zinc-500 block">Petani:</span>
-                      <strong className="text-zinc-200 truncate block">{activePendingRecord.supplierName}</strong>
+                      <strong className="text-zinc-900 dark:text-zinc-200 truncate block">{activePendingRecord.supplierName}</strong>
                     </div>
                     <div>
                       <span className="text-zinc-500 block">Timbang Bruto:</span>
-                      <strong className="text-emerald-400 font-mono text-sm">{formatKg(activePendingRecord.grossWeight)}</strong>
+                      <strong className="text-emerald-600 dark:text-emerald-400 font-mono text-sm">{formatKg(activePendingRecord.grossWeight)}</strong>
                     </div>
                   </div>
 
                   {/* Tare Weight Input */}
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                       Timbang Tara Truk Kosong (Kg):
                     </label>
                     <div className="flex items-center gap-2">
@@ -535,12 +533,12 @@ export const WeighbridgeView: React.FC = () => {
                         placeholder="Contoh: 3420"
                         value={tareInput || ''}
                         onChange={(e) => setTareInput(parseInt(e.target.value, 10) || 0)}
-                        className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-lg text-emerald-400 font-mono text-lg font-bold focus:outline-none focus:border-emerald-500"
+                        className="w-full px-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-emerald-600 dark:text-emerald-400 font-mono text-lg font-bold focus:outline-none focus:border-emerald-500"
                       />
                       <button
                         type="button"
                         onClick={() => setTareInput(liveWeight)}
-                        className="px-3 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-emerald-400 border border-zinc-700 text-xs font-bold whitespace-nowrap cursor-pointer"
+                        className="px-3 py-2.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-emerald-700 dark:text-emerald-400 border border-zinc-300 dark:border-zinc-700 text-xs font-bold whitespace-nowrap cursor-pointer shadow-2xs"
                       >
                         Salin ({liveWeight} kg)
                       </button>
@@ -548,17 +546,17 @@ export const WeighbridgeView: React.FC = () => {
                   </div>
 
                   {/* Sortation Matrix */}
-                  <div className="border border-zinc-800 rounded-lg p-3 bg-zinc-950/60">
-                    <h3 className="text-xs font-bold text-zinc-200 mb-2.5 flex items-center justify-between">
+                  <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 bg-zinc-50 dark:bg-zinc-950/60">
+                    <h3 className="text-xs font-bold text-zinc-900 dark:text-zinc-200 mb-2.5 flex items-center justify-between">
                       <span>Parameter Pemotongan Mutu & Sortasi Buah:</span>
-                      <span className="text-zinc-400 font-normal">
-                        Total Potong: <strong className="text-rose-400">{taraCalcPreview?.totalDeductionKg || 0} kg ({taraCalcPreview?.totalPercentDeduction || 0}%)</strong>
+                      <span className="text-zinc-500 dark:text-zinc-400 font-normal">
+                        Total Potong: <strong className="text-rose-600 dark:text-rose-400">{taraCalcPreview?.totalDeductionKg || 0} kg ({taraCalcPreview?.totalPercentDeduction || 0}%)</strong>
                       </span>
                     </h3>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                       <div>
-                        <label className="block text-zinc-400 text-[11px] mb-1">Potongan Air / Hujan (%):</label>
+                        <label className="block text-zinc-600 dark:text-zinc-400 text-[11px] mb-1">Potongan Air / Hujan (%):</label>
                         <input
                           type="number"
                           step="0.1"
@@ -566,12 +564,12 @@ export const WeighbridgeView: React.FC = () => {
                           max="20"
                           value={sortation.waterPercent}
                           onChange={(e) => setSortation(s => ({ ...s, waterPercent: parseFloat(e.target.value) || 0 }))}
-                          className="w-full px-2 py-1.5 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 font-mono"
+                          className="w-full px-2 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-zinc-400 text-[11px] mb-1">Gagang Panjang &gt; 2.5cm (%):</label>
+                        <label className="block text-zinc-600 dark:text-zinc-400 text-[11px] mb-1">Gagang Panjang &gt; 2.5cm (%):</label>
                         <input
                           type="number"
                           step="0.1"
@@ -579,12 +577,12 @@ export const WeighbridgeView: React.FC = () => {
                           max="20"
                           value={sortation.longStalkPercent}
                           onChange={(e) => setSortation(s => ({ ...s, longStalkPercent: parseFloat(e.target.value) || 0 }))}
-                          className="w-full px-2 py-1.5 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 font-mono"
+                          className="w-full px-2 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-zinc-400 text-[11px] mb-1">Buah Mentah Fraksi 0 (%):</label>
+                        <label className="block text-zinc-600 dark:text-zinc-400 text-[11px] mb-1">Buah Mentah Fraksi 0 (%):</label>
                         <input
                           type="number"
                           step="0.1"
@@ -592,12 +590,12 @@ export const WeighbridgeView: React.FC = () => {
                           max="20"
                           value={sortation.unripePercent}
                           onChange={(e) => setSortation(s => ({ ...s, unripePercent: parseFloat(e.target.value) || 0 }))}
-                          className="w-full px-2 py-1.5 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 font-mono"
+                          className="w-full px-2 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-zinc-400 text-[11px] mb-1">Buah Busuk / Lewat Matang (%):</label>
+                        <label className="block text-zinc-600 dark:text-zinc-400 text-[11px] mb-1">Buah Busuk / Lewat Matang (%):</label>
                         <input
                           type="number"
                           step="0.1"
@@ -605,30 +603,30 @@ export const WeighbridgeView: React.FC = () => {
                           max="20"
                           value={sortation.rottenPercent}
                           onChange={(e) => setSortation(s => ({ ...s, rottenPercent: parseFloat(e.target.value) || 0 }))}
-                          className="w-full px-2 py-1.5 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 font-mono"
+                          className="w-full px-2 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-zinc-400 text-[11px] mb-1">Potongan Sampah/Batu (Kg):</label>
+                        <label className="block text-zinc-600 dark:text-zinc-400 text-[11px] mb-1">Potongan Sampah/Batu (Kg):</label>
                         <input
                           type="number"
                           min="0"
                           value={sortation.dirtKg}
                           onChange={(e) => setSortation(s => ({ ...s, dirtKg: parseInt(e.target.value, 10) || 0 }))}
-                          className="w-full px-2 py-1.5 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 font-mono"
+                          className="w-full px-2 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-zinc-400 text-[11px] mb-1">Potong Kasbon Petani (Rp):</label>
+                        <label className="block text-zinc-600 dark:text-zinc-400 text-[11px] mb-1">Potong Kasbon Petani (Rp):</label>
                         <input
                           type="number"
                           min="0"
                           value={loanDeductInput || ''}
                           placeholder="0"
                           onChange={(e) => setLoanDeductInput(parseInt(e.target.value, 10) || 0)}
-                          className="w-full px-2 py-1.5 bg-zinc-900 border border-zinc-700 rounded text-amber-300 font-mono font-semibold"
+                          className="w-full px-2 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded text-amber-700 dark:text-amber-300 font-mono font-semibold"
                         />
                       </div>
                     </div>
@@ -636,22 +634,22 @@ export const WeighbridgeView: React.FC = () => {
 
                   {/* Calculation Result Preview Box */}
                   {taraCalcPreview && (
-                    <div className="p-3.5 bg-emerald-950/30 border border-emerald-800/60 rounded-lg text-xs space-y-1.5">
-                      <div className="flex justify-between text-zinc-300">
+                    <div className="p-3.5 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-800/60 rounded-lg text-xs space-y-1.5">
+                      <div className="flex justify-between text-zinc-700 dark:text-zinc-300">
                         <span>Netto Kotor (Bruto - Tara):</span>
-                        <span className="font-mono font-bold text-zinc-100">{formatKg(taraCalcPreview.netGross)}</span>
+                        <span className="font-mono font-bold text-zinc-900 dark:text-zinc-100">{formatKg(taraCalcPreview.netGross)}</span>
                       </div>
-                      <div className="flex justify-between text-zinc-300">
+                      <div className="flex justify-between text-zinc-700 dark:text-zinc-300">
                         <span>Total Potongan Mutu:</span>
-                        <span className="font-mono text-rose-400">- {formatKg(taraCalcPreview.totalDeductionKg)}</span>
+                        <span className="font-mono text-rose-600 dark:text-rose-400 font-semibold">- {formatKg(taraCalcPreview.totalDeductionKg)}</span>
                       </div>
-                      <div className="flex justify-between text-emerald-300 font-bold border-t border-emerald-800/40 pt-1">
+                      <div className="flex justify-between text-emerald-800 dark:text-emerald-300 font-bold border-t border-emerald-200 dark:border-emerald-800/40 pt-1">
                         <span>NETTO BERSIH DITERIMA:</span>
                         <span className="font-mono text-sm">{formatKg(taraCalcPreview.netCleanWeight)}</span>
                       </div>
-                      <div className="flex justify-between text-zinc-100 font-extrabold text-sm border-t border-emerald-800/40 pt-1">
+                      <div className="flex justify-between text-zinc-900 dark:text-zinc-100 font-extrabold text-sm border-t border-emerald-200 dark:border-emerald-800/40 pt-1">
                         <span>TOTAL BAYAR KE PETANI:</span>
-                        <span className="font-mono text-emerald-400">{formatRupiah(taraCalcPreview.netPayable)}</span>
+                        <span className="font-mono text-emerald-700 dark:text-emerald-400 font-black">{formatRupiah(taraCalcPreview.netPayable)}</span>
                       </div>
                     </div>
                   )}
@@ -673,11 +671,11 @@ export const WeighbridgeView: React.FC = () => {
 
           {/* ACTIVE FORM: OUTBOUND WEIGHING (KIRIM PKS) */}
           {activeMode === 'OUTBOUND' && (
-            <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-              <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+              <div className="px-5 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-emerald-400" />
-                  <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+                  <Truck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
                     Penimbangan Pengiriman TBS ke Pabrik (PKS)
                   </h2>
                 </div>
@@ -686,7 +684,7 @@ export const WeighbridgeView: React.FC = () => {
               <form onSubmit={handleSubmitOutbound} className="p-5 space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                       Pilih Pabrik Kelapa Sawit (PKS) Tujuan:
                     </label>
                     <select
@@ -697,7 +695,7 @@ export const WeighbridgeView: React.FC = () => {
                         const m = mills.find(mill => mill.id === e.target.value);
                         if (m) setOutboundPriceInput(m.contractPricePerKg);
                       }}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
+                      className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
                     >
                       <option value="">-- Pilih PKS Tujuan --</option>
                       {mills.map(m => (
@@ -709,7 +707,7 @@ export const WeighbridgeView: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                       Harga Kontrak PKS (Rp/Kg):
                     </label>
                     <input
@@ -717,14 +715,14 @@ export const WeighbridgeView: React.FC = () => {
                       required
                       value={outboundPriceInput || ''}
                       onChange={(e) => setOutboundPriceInput(parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
+                      className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                       Nomor Polisi Armada Ramp:
                     </label>
                     <input
@@ -733,12 +731,12 @@ export const WeighbridgeView: React.FC = () => {
                       placeholder="Contoh: BM 9412 TA"
                       value={vehiclePlate}
                       onChange={(e) => setVehiclePlate(e.target.value.toUpperCase())}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm tracking-wider uppercase focus:outline-none focus:border-emerald-500"
+                      className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm tracking-wider uppercase focus:outline-none focus:border-emerald-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                       Nama Supir Armada:
                     </label>
                     <input
@@ -747,14 +745,14 @@ export const WeighbridgeView: React.FC = () => {
                       placeholder="Nama supir armada..."
                       value={driverName}
                       onChange={(e) => setDriverName(e.target.value)}
-                      className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
+                      className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-200 text-xs focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                       1. Tara Truk Kosong Ramp (Kg):
                     </label>
                     <div className="flex items-center gap-2">
@@ -765,12 +763,12 @@ export const WeighbridgeView: React.FC = () => {
                         placeholder="Contoh: 4250"
                         value={outboundTareInput || ''}
                         onChange={(e) => setOutboundTareInput(parseInt(e.target.value, 10) || 0)}
-                        className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                        className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500"
                       />
                       <button
                         type="button"
                         onClick={() => setOutboundTareInput(liveWeight)}
-                        className="px-2.5 py-2 rounded-lg bg-zinc-800 text-emerald-400 border border-zinc-700 text-xs font-semibold cursor-pointer"
+                        className="px-2.5 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-emerald-700 dark:text-emerald-400 border border-zinc-300 dark:border-zinc-700 text-xs font-semibold cursor-pointer shadow-2xs"
                       >
                         Salin ({liveWeight})
                       </button>
@@ -778,7 +776,7 @@ export const WeighbridgeView: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                       2. Bruto Muatan TBS Ramp (Kg):
                     </label>
                     <div className="flex items-center gap-2">
@@ -789,12 +787,12 @@ export const WeighbridgeView: React.FC = () => {
                         placeholder="Contoh: 17850"
                         value={outboundGrossInput || ''}
                         onChange={(e) => setOutboundGrossInput(parseInt(e.target.value, 10) || 0)}
-                        className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-emerald-400 font-mono text-sm font-bold focus:outline-none focus:border-emerald-500"
+                        className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-emerald-600 dark:text-emerald-400 font-mono text-sm font-bold focus:outline-none focus:border-emerald-500"
                       />
                       <button
                         type="button"
                         onClick={() => setOutboundGrossInput(liveWeight)}
-                        className="px-2.5 py-2 rounded-lg bg-zinc-800 text-emerald-400 border border-zinc-700 text-xs font-semibold cursor-pointer"
+                        className="px-2.5 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 text-emerald-700 dark:text-emerald-400 border border-zinc-300 dark:border-zinc-700 text-xs font-semibold cursor-pointer shadow-2xs"
                       >
                         Salin ({liveWeight})
                       </button>
@@ -803,16 +801,16 @@ export const WeighbridgeView: React.FC = () => {
                 </div>
 
                 {outboundGrossInput > outboundTareInput && (
-                  <div className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg text-xs space-y-1">
+                  <div className="p-3 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg text-xs space-y-1">
                     <div className="flex justify-between">
-                      <span className="text-zinc-400">Netto TBS Terkirim:</span>
-                      <strong className="text-emerald-400 font-mono text-sm">
+                      <span className="text-zinc-600 dark:text-zinc-400">Netto TBS Terkirim:</span>
+                      <strong className="text-emerald-700 dark:text-emerald-400 font-mono text-sm">
                         {formatKg(outboundGrossInput - outboundTareInput)}
                       </strong>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-zinc-400">Estimasi Nilai Penjualan ke PKS:</span>
-                      <strong className="text-zinc-200 font-mono">
+                      <span className="text-zinc-600 dark:text-zinc-400">Estimasi Nilai Penjualan ke PKS:</span>
+                      <strong className="text-zinc-900 dark:text-zinc-200 font-mono">
                         {formatRupiah((outboundGrossInput - outboundTareInput) * outboundPriceInput)}
                       </strong>
                     </div>
@@ -834,18 +832,18 @@ export const WeighbridgeView: React.FC = () => {
         {/* Right Column: Queues & Active Floor Monitoring (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
           {/* Pending Tare Queue Card */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-            <div className="px-4 py-3 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+            <div className="px-4 py-3 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-amber-400" />
-                <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wide">
+                <Clock className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                <h3 className="text-xs font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wide">
                   Antrean Bongkar Ramp ({pendingRecords.length} Truk Menunggu Tara)
                 </h3>
               </div>
               <span className="text-[10px] text-zinc-500 font-mono">LIVE QUEUE</span>
             </div>
 
-            <div className="p-3 divide-y divide-zinc-800/80 max-h-[360px] overflow-y-auto">
+            <div className="p-3 divide-y divide-zinc-200 dark:divide-zinc-800/80 max-h-[360px] overflow-y-auto">
               {pendingRecords.length === 0 ? (
                 <div className="py-8 text-center text-xs text-zinc-500">
                   Tidak ada truk yang sedang menunggu penimbangan Tara.
@@ -855,12 +853,12 @@ export const WeighbridgeView: React.FC = () => {
                   <div key={rec.id} className="py-2.5 flex items-center justify-between gap-3">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-xs text-zinc-200">{rec.vehiclePlate}</span>
-                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono font-semibold">
+                        <span className="font-mono font-bold text-xs text-zinc-900 dark:text-zinc-200">{rec.vehiclePlate}</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-700 dark:text-amber-300 font-mono font-semibold">
                           BRUTO: {formatKg(rec.grossWeight)}
                         </span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 truncate max-w-[200px]">
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400 truncate max-w-[200px]">
                         {rec.supplierName} • {rec.driverName}
                       </p>
                       <span className="text-[10px] text-zinc-500">
@@ -875,7 +873,7 @@ export const WeighbridgeView: React.FC = () => {
                         setTareInput(rec.tareWeight || 0);
                         setSortation(rec.sortation);
                       }}
-                      className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                      className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
                     >
                       <span>Timbang Tara</span>
                       <ChevronRight className="w-3.5 h-3.5" />
@@ -887,54 +885,54 @@ export const WeighbridgeView: React.FC = () => {
           </div>
 
           {/* Quick Pricing Reference Card */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-xs space-y-2.5">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="font-bold text-zinc-300">Papan Harga TBS Hari Ini:</span>
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 text-xs space-y-2.5 shadow-2xs transition-colors">
+            <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
+              <span className="font-bold text-zinc-800 dark:text-zinc-300">Papan Harga TBS Hari Ini:</span>
               <span className="text-[11px] text-zinc-500 font-mono">{priceBoard.date}</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 text-center">
-              <div className="p-2 rounded bg-zinc-950 border border-zinc-800">
+              <div className="p-2 rounded bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
                 <span className="text-[10px] text-zinc-500 block">GRADE SUPER</span>
-                <strong className="text-emerald-400 font-mono text-sm">{formatRupiah(priceBoard.priceSuper)}</strong>
+                <strong className="text-emerald-700 dark:text-emerald-400 font-mono text-sm">{formatRupiah(priceBoard.priceSuper)}</strong>
               </div>
-              <div className="p-2 rounded bg-zinc-950 border border-zinc-800">
+              <div className="p-2 rounded bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
                 <span className="text-[10px] text-zinc-500 block">GRADE A</span>
-                <strong className="text-zinc-200 font-mono text-sm">{formatRupiah(priceBoard.priceGradeA)}</strong>
+                <strong className="text-zinc-900 dark:text-zinc-200 font-mono text-sm">{formatRupiah(priceBoard.priceGradeA)}</strong>
               </div>
-              <div className="p-2 rounded bg-zinc-950 border border-zinc-800">
+              <div className="p-2 rounded bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
                 <span className="text-[10px] text-zinc-500 block">GRADE B</span>
-                <strong className="text-zinc-200 font-mono text-sm">{formatRupiah(priceBoard.priceGradeB)}</strong>
+                <strong className="text-zinc-900 dark:text-zinc-200 font-mono text-sm">{formatRupiah(priceBoard.priceGradeB)}</strong>
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-[11px] text-zinc-400 pt-1">
-              <span>Target Jual ke PKS: <strong className="text-zinc-200 font-mono">{formatRupiah(priceBoard.targetMillPrice)}</strong></span>
-              <span>Spread Margin: <strong className="text-emerald-400 font-mono">+{formatRupiah(priceBoard.spreadMargin)}/kg</strong></span>
+            <div className="flex items-center justify-between text-[11px] text-zinc-600 dark:text-zinc-400 pt-1">
+              <span>Target Jual ke PKS: <strong className="text-zinc-900 dark:text-zinc-200 font-mono">{formatRupiah(priceBoard.targetMillPrice)}</strong></span>
+              <span>Spread Margin: <strong className="text-emerald-700 dark:text-emerald-400 font-mono">+{formatRupiah(priceBoard.spreadMargin)}/kg</strong></span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Section: Today's Weighing Records Table */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+        <div className="px-5 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-emerald-400" />
-            <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wide">
+            <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <h3 className="text-xs font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wide">
               Riwayat Transaksi Jembatan Timbang ({filteredRecords.length} Tiket)
             </h3>
           </div>
 
           <div className="flex items-center gap-2">
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-2.5 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2.5" />
               <input
                 type="text"
                 placeholder="Cari nopol, tiket, petani..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8 pr-3 py-1 bg-zinc-900 border border-zinc-700 rounded-lg text-xs text-zinc-200 focus:outline-none focus:border-emerald-500 w-52"
+                className="pl-8 pr-3 py-1 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg text-xs text-zinc-900 dark:text-zinc-200 focus:outline-none focus:border-emerald-500 w-52"
               />
             </div>
           </div>
@@ -943,7 +941,7 @@ export const WeighbridgeView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-zinc-950/80 border-b border-zinc-800 text-zinc-400 font-semibold font-mono text-[11px]">
+              <tr className="bg-zinc-100 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-semibold font-mono text-[11px]">
                 <th className="py-2.5 px-3">NO TIKET</th>
                 <th className="py-2.5 px-3">TIPE</th>
                 <th className="py-2.5 px-3">NOPOL & SUPIR</th>
@@ -956,7 +954,7 @@ export const WeighbridgeView: React.FC = () => {
                 <th className="py-2.5 px-3 text-center">AKSI</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800/60 font-sans">
+            <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/60 font-sans">
               {filteredRecords.length === 0 ? (
                 <tr>
                   <td colSpan={10} className="py-8 text-center text-zinc-500 text-xs">
@@ -965,48 +963,48 @@ export const WeighbridgeView: React.FC = () => {
                 </tr>
               ) : (
                 filteredRecords.map(rec => (
-                  <tr key={rec.id} className="hover:bg-zinc-850/50 transition-colors">
-                    <td className="py-2.5 px-3 font-mono font-bold text-zinc-200">
+                  <tr key={rec.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-850/50 transition-colors">
+                    <td className="py-2.5 px-3 font-mono font-bold text-zinc-900 dark:text-zinc-200">
                       {rec.ticketNumber}
                     </td>
                     <td className="py-2.5 px-3">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         rec.type === 'INBOUND'
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                          : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                          ? 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30'
+                          : 'bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-500/30'
                       }`}>
                         {rec.type === 'INBOUND' ? 'MASUK' : 'KELUAR'}
                       </span>
                     </td>
                     <td className="py-2.5 px-3">
-                      <span className="font-mono font-bold text-zinc-200 block">{rec.vehiclePlate}</span>
-                      <span className="text-[11px] text-zinc-400">{rec.driverName}</span>
+                      <span className="font-mono font-bold text-zinc-900 dark:text-zinc-200 block">{rec.vehiclePlate}</span>
+                      <span className="text-[11px] text-zinc-600 dark:text-zinc-400">{rec.driverName}</span>
                     </td>
                     <td className="py-2.5 px-3">
-                      <span className="font-semibold text-zinc-200 block truncate max-w-[150px]">
+                      <span className="font-semibold text-zinc-900 dark:text-zinc-200 block truncate max-w-[150px]">
                         {rec.type === 'INBOUND' ? rec.supplierName : rec.millName}
                       </span>
                       <span className="text-[10px] text-zinc-500">{formatDateTime(rec.timestampGross)}</span>
                     </td>
-                    <td className="py-2.5 px-3 text-right font-mono text-zinc-300">
+                    <td className="py-2.5 px-3 text-right font-mono text-zinc-800 dark:text-zinc-300">
                       {formatKg(rec.grossWeight)}
                     </td>
-                    <td className="py-2.5 px-3 text-right font-mono text-zinc-400">
+                    <td className="py-2.5 px-3 text-right font-mono text-zinc-600 dark:text-zinc-400">
                       {rec.tareWeight > 0 ? formatKg(rec.tareWeight) : '-'}
                     </td>
-                    <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-400">
+                    <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700 dark:text-emerald-400">
                       {rec.netCleanWeight > 0 ? formatKg(rec.netCleanWeight) : '-'}
                     </td>
-                    <td className="py-2.5 px-3 text-right font-mono font-semibold text-zinc-200">
+                    <td className="py-2.5 px-3 text-right font-mono font-semibold text-zinc-900 dark:text-zinc-200">
                       {rec.netPayable > 0 ? formatRupiah(rec.netPayable) : '-'}
                     </td>
                     <td className="py-2.5 px-3 text-center">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
                         rec.status === 'COMPLETED'
-                          ? 'bg-zinc-800 text-zinc-300 border border-zinc-700'
+                          ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700'
                           : rec.status === 'TARA_PENDING'
-                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold'
-                            : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                            ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 font-bold'
+                            : 'bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/30'
                       }`}>
                         {rec.status === 'TARA_PENDING' ? 'ANTRE TARA' : rec.status}
                       </span>
@@ -1016,7 +1014,7 @@ export const WeighbridgeView: React.FC = () => {
                         <button
                           onClick={() => setSelectedRecordForPrint(rec)}
                           title="Cetak Tiket"
-                          className="p-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                          className="p-1.5 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer shadow-2xs"
                         >
                           <Printer className="w-3.5 h-3.5" />
                         </button>
@@ -1027,7 +1025,7 @@ export const WeighbridgeView: React.FC = () => {
                               if (reason) cancelRecord(rec.id, reason);
                             }}
                             title="Batalkan Tiket"
-                            className="p-1.5 rounded bg-zinc-800 hover:bg-rose-950 text-zinc-500 hover:text-rose-400 transition-colors cursor-pointer"
+                            className="p-1.5 rounded bg-zinc-100 hover:bg-rose-100 dark:bg-zinc-800 dark:hover:bg-rose-950 text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
                           >
                             ×
                           </button>

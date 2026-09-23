@@ -29,7 +29,7 @@ const MainLayout: React.FC = () => {
         e.preventDefault();
         setActiveTab('pricing');
       } else if (e.key === 'F5') {
-        // let standard refresh happen or prevent if desired
+        // allow browser refresh
       } else if (e.key === 'F6') {
         e.preventDefault();
         setActiveTab('reports');
@@ -41,7 +41,7 @@ const MainLayout: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-zinc-100 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors">
       {/* Top Corporate Navigation */}
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -57,22 +57,22 @@ const MainLayout: React.FC = () => {
       </main>
 
       {/* Bottom Status / Keyboard Shortcuts Legend Bar */}
-      <footer className="bg-zinc-900 border-t border-zinc-800/80 px-4 py-2 text-xs text-zinc-400 flex flex-wrap items-center justify-between gap-2 select-none no-print">
+      <footer className="bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800/80 px-4 py-2 text-xs text-zinc-600 dark:text-zinc-400 flex flex-wrap items-center justify-between gap-2 select-none no-print shadow-2xs transition-colors">
         <div className="flex items-center gap-3">
-          <span className="font-semibold text-zinc-300">Shortcut Cepat:</span>
-          <span className="px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 font-mono text-[11px] text-zinc-300">
+          <span className="font-semibold text-zinc-700 dark:text-zinc-300">Shortcut Cepat:</span>
+          <span className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 font-mono text-[11px] text-zinc-700 dark:text-zinc-300">
             [F1] Timbangan
           </span>
-          <span className="px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 font-mono text-[11px] text-zinc-300">
+          <span className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 font-mono text-[11px] text-zinc-700 dark:text-zinc-300">
             [F2] Kirim PKS
           </span>
-          <span className="px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 font-mono text-[11px] text-zinc-300">
+          <span className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 font-mono text-[11px] text-zinc-700 dark:text-zinc-300">
             [F3] Kasir
           </span>
-          <span className="px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 font-mono text-[11px] text-zinc-300">
+          <span className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 font-mono text-[11px] text-zinc-700 dark:text-zinc-300">
             [F4] Harga TBS
           </span>
-          <span className="px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 font-mono text-[11px] text-zinc-300">
+          <span className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 font-mono text-[11px] text-zinc-700 dark:text-zinc-300">
             [F6] Laporan
           </span>
         </div>

@@ -77,6 +77,11 @@ interface AppContextType {
   updateCompanySettings: (settings: CompanySettings) => void;
   updateScaleConfig: (config: ScaleConfig) => void;
   resetAllData: () => void;
+
+  // Theme Management (Dark / Light)
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
+  setTheme: (t: 'dark' | 'light') => void;
 }
 
 const STORAGE_KEY = 'AGROSCALE_ENTERPRISE_STATE_V1';
@@ -102,6 +107,33 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [cashTransactions, setCashTransactions] = useState<CashTransaction[]>(() => loadStored('cash', initialCashTransactions));
   const [scaleConfig, setScaleConfig] = useState<ScaleConfig>(() => loadStored('scale', initialScaleConfig));
   const [companySettings, setCompanySettings] = useState<CompanySettings>(() => loadStored('company', initialCompanySettings));
+
+  // Theme Management: Light & Dark Mode
+  const [theme, setThemeState] = useState<'dark' | 'light'>(() => {
+    try {
+      const saved = localStorage.getItem('AGROSCALE_THEME');
+      if (saved === 'dark' || saved === 'light') return saved;
+    } catch {}
+    return 'dark'; // Default corporate dark
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('AGROSCALE_THEME', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setThemeState(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
+  const setTheme = (t: 'dark' | 'light') => {
+    setThemeState(t);
+  };
 
   // Live scale reading simulation
   const [liveWeight, setLiveWeightState] = useState<number>(0);
@@ -552,7 +584,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       addCashTransaction,
       updateCompanySettings,
       updateScaleConfig,
-      resetAllData
+      resetAllData,
+
+      theme,
+      toggleTheme,
+      setTheme
     }}>
       {children}
     </AppContext.Provider>

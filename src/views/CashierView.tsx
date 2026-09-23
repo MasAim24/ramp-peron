@@ -10,9 +10,9 @@ import {
   Plus, 
   AlertCircle, 
   CheckCircle2, 
-  Search,
-  Receipt,
-  User
+  Search, 
+  Receipt, 
+  User 
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { WeighingRecord, CashTransaction } from '../types';
@@ -67,9 +67,7 @@ export const CashierView: React.FC = () => {
   const handleOpenPayment = (rec: WeighingRecord) => {
     setActivePaymentRecord(rec);
     const sup = suppliers.find(s => s.id === rec.supplierId);
-    // If supplier has active debt, suggest deduction
     if (sup && sup.debtBalance > 0) {
-      // Suggest up to 20% of ticket amount or full debt, whichever is smaller
       const suggested = Math.min(sup.debtBalance, Math.round(rec.grossAmount * 0.2));
       setLoanDeductInput(suggested);
     } else {
@@ -126,48 +124,48 @@ export const CashierView: React.FC = () => {
       {/* Top Financial Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Saldo Kasir Fisik */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
+          <div className="flex items-center justify-between text-xs text-zinc-500 mb-1">
             <span className="font-semibold">SALDO FISIK KASIR PERON</span>
-            <Banknote className="w-4 h-4 text-emerald-400" />
+            <Banknote className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           </div>
-          <div className="text-2xl font-black font-mono text-emerald-400">
+          <div className="text-2xl font-black font-mono text-emerald-700 dark:text-emerald-400">
             {formatRupiah(currentCashBalance)}
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">Kas tunai brankas siap bayar TBS</span>
         </div>
 
         {/* Card 2: Antrean Bayar Petani */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
+          <div className="flex items-center justify-between text-xs text-zinc-500 mb-1">
             <span className="font-semibold">TAGIHAN MENUNGGU BAYAR</span>
-            <Clock className="w-4 h-4 text-amber-400" />
+            <Clock className="w-4 h-4 text-amber-500 dark:text-amber-400" />
           </div>
-          <div className="text-2xl font-bold font-mono text-amber-400">
+          <div className="text-2xl font-bold font-mono text-amber-600 dark:text-amber-400">
             {formatRupiah(pendingTickets.reduce((acc, t) => acc + t.netPayable, 0))}
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">{pendingTickets.length} Tiket Menunggu Kasir</span>
         </div>
 
         {/* Card 3: Total Pembayaran Hari Ini */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
+          <div className="flex items-center justify-between text-xs text-zinc-500 mb-1">
             <span className="font-semibold">TOTAL DIBAYARKAN HARI INI</span>
             <ArrowDownLeft className="w-4 h-4 text-zinc-400" />
           </div>
-          <div className="text-2xl font-bold font-mono text-zinc-200">
+          <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-200">
             {formatRupiah(paidTickets.reduce((acc, t) => acc + t.netPayable, 0))}
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">{paidTickets.length} Transaksi Selesai</span>
         </div>
 
         {/* Card 4: Total Kasbon Petani Aktif */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 shadow-2xs transition-colors">
+          <div className="flex items-center justify-between text-xs text-zinc-500 mb-1">
             <span className="font-semibold">TOTAL PIUTANG KASBON PETANI</span>
-            <User className="w-4 h-4 text-blue-400" />
+            <User className="w-4 h-4 text-blue-500 dark:text-blue-400" />
           </div>
-          <div className="text-2xl font-bold font-mono text-blue-400">
+          <div className="text-2xl font-bold font-mono text-blue-600 dark:text-blue-400">
             {formatRupiah(suppliers.reduce((acc, s) => acc + s.debtBalance, 0))}
           </div>
           <span className="text-[11px] text-zinc-500 mt-1 block">Pinjaman aktif pupuk & modal</span>
@@ -178,18 +176,18 @@ export const CashierView: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left Column: Pending Ticket Payment Queue (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Receipt className="w-4 h-4 text-amber-400" />
-                <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+                <Receipt className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
                   Antrean Kasir Pembayaran Tiket ({pendingTickets.length} Tiket)
                 </h2>
               </div>
-              <span className="text-[11px] text-zinc-400">Kasir: <strong className="text-zinc-200">{companySettings.cashierName}</strong></span>
+              <span className="text-[11px] text-zinc-500">Kasir: <strong className="text-zinc-800 dark:text-zinc-200">{companySettings.cashierName}</strong></span>
             </div>
 
-            <div className="divide-y divide-zinc-800/80">
+            <div className="divide-y divide-zinc-200 dark:divide-zinc-800/80">
               {pendingTickets.length === 0 ? (
                 <div className="p-8 text-center text-xs text-zinc-500">
                   Semua tiket penimbangan telah dibayar lunas.
@@ -198,40 +196,40 @@ export const CashierView: React.FC = () => {
                 pendingTickets.map(ticket => {
                   const sup = suppliers.find(s => s.id === ticket.supplierId);
                   return (
-                    <div key={ticket.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-zinc-850/40 transition-colors">
+                    <div key={ticket.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-zinc-50 dark:hover:bg-zinc-850/40 transition-colors">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-xs text-zinc-200">{ticket.ticketNumber}</span>
-                          <span className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">
+                          <span className="font-mono font-bold text-xs text-zinc-900 dark:text-zinc-200">{ticket.ticketNumber}</span>
+                          <span className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
                             {ticket.vehiclePlate}
                           </span>
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-bold">
                             {ticket.fruitGrade}
                           </span>
                         </div>
 
-                        <p className="text-xs font-semibold text-zinc-200">
+                        <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-200">
                           {ticket.supplierName} ({ticket.driverName})
                         </p>
 
-                        <div className="flex items-center gap-3 text-[11px] text-zinc-400">
-                          <span>Netto Bersih: <strong className="text-zinc-200 font-mono">{formatKg(ticket.netCleanWeight)}</strong></span>
+                        <div className="flex items-center gap-3 text-[11px] text-zinc-600 dark:text-zinc-400">
+                          <span>Netto Bersih: <strong className="text-zinc-900 dark:text-zinc-200 font-mono">{formatKg(ticket.netCleanWeight)}</strong></span>
                           <span>&bull;</span>
-                          <span>Harga: <strong className="text-zinc-200 font-mono">{formatRupiah(ticket.pricePerKg)}</strong></span>
+                          <span>Harga: <strong className="text-zinc-900 dark:text-zinc-200 font-mono">{formatRupiah(ticket.pricePerKg)}</strong></span>
                         </div>
 
                         {sup && sup.debtBalance > 0 && (
-                          <div className="text-[11px] text-amber-400 flex items-center gap-1 pt-0.5">
+                          <div className="text-[11px] text-amber-600 dark:text-amber-400 flex items-center gap-1 pt-0.5 font-medium">
                             <AlertCircle className="w-3 h-3" />
                             <span>Memiliki Saldo Kasbon: <strong>{formatRupiah(sup.debtBalance)}</strong></span>
                           </div>
                         )}
                       </div>
 
-                      <div className="text-left sm:text-right flex sm:flex-col items-center sm:items-end justify-between gap-2 border-t sm:border-t-0 border-zinc-800 pt-2 sm:pt-0">
+                      <div className="text-left sm:text-right flex sm:flex-col items-center sm:items-end justify-between gap-2 border-t sm:border-t-0 border-zinc-200 dark:border-zinc-800 pt-2 sm:pt-0">
                         <div>
-                          <span className="text-[10px] text-zinc-500 block uppercase">Total Tagihan Bersih:</span>
-                          <span className="font-mono font-black text-base text-emerald-400">
+                          <span className="text-[10px] text-zinc-500 block uppercase font-medium">Total Tagihan Bersih:</span>
+                          <span className="font-mono font-black text-base text-emerald-700 dark:text-emerald-400">
                             {formatRupiah(ticket.netPayable || ticket.grossAmount)}
                           </span>
                         </div>
@@ -254,25 +252,25 @@ export const CashierView: React.FC = () => {
 
         {/* Right Column: Cash Ledger & History (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-            <div className="px-4 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+            <div className="px-4 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Wallet className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-xs font-bold text-zinc-100 uppercase tracking-wide">
+                <Wallet className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
                   Mutasi Arus Kas Ramp
                 </h3>
               </div>
 
               <button
                 onClick={() => setShowAddCashModal(true)}
-                className="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+                className="px-2.5 py-1 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
               >
-                <Plus className="w-3 h-3 text-emerald-400" />
+                <Plus className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                 <span>Input Kas</span>
               </button>
             </div>
 
-            <div className="p-3 divide-y divide-zinc-800/80 max-h-[450px] overflow-y-auto">
+            <div className="p-3 divide-y divide-zinc-200 dark:divide-zinc-800/80 max-h-[450px] overflow-y-auto">
               {cashTransactions.length === 0 ? (
                 <div className="py-8 text-center text-xs text-zinc-500">
                   Belum ada transaksi mutasi kas hari ini.
@@ -283,13 +281,13 @@ export const CashierView: React.FC = () => {
                     <div className="flex items-center gap-2.5">
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center ${
                         tx.type === 'IN' 
-                          ? 'bg-emerald-500/20 text-emerald-400' 
-                          : 'bg-rose-500/20 text-rose-400'
+                          ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-400' 
+                          : 'bg-rose-500/20 text-rose-700 dark:text-rose-400'
                       }`}>
                         {tx.type === 'IN' ? <ArrowDownLeft className="w-3.5 h-3.5" /> : <ArrowUpRight className="w-3.5 h-3.5" />}
                       </div>
                       <div>
-                        <strong className="text-zinc-200 block truncate max-w-[190px]">
+                        <strong className="text-zinc-900 dark:text-zinc-200 block truncate max-w-[190px]">
                           {tx.description}
                         </strong>
                         <span className="text-[10px] text-zinc-500">
@@ -300,7 +298,7 @@ export const CashierView: React.FC = () => {
 
                     <div className="text-right font-mono">
                       <span className={`font-bold block ${
-                        tx.type === 'IN' ? 'text-emerald-400' : 'text-zinc-200'
+                        tx.type === 'IN' ? 'text-emerald-700 dark:text-emerald-400' : 'text-zinc-900 dark:text-zinc-200'
                       }`}>
                         {tx.type === 'IN' ? '+' : '-'}{formatRupiah(tx.amount)}
                       </span>
@@ -316,18 +314,18 @@ export const CashierView: React.FC = () => {
 
       {/* Modal: Process Payment Settlement */}
       {activePaymentRecord && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Banknote className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-sm font-bold text-zinc-100 uppercase">
+                <Banknote className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase">
                   Pelunasan Pembayaran TBS ({activePaymentRecord.ticketNumber})
                 </h3>
               </div>
               <button
                 onClick={() => setActivePaymentRecord(null)}
-                className="text-zinc-400 hover:text-white text-xs font-semibold cursor-pointer"
+                className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-xs font-semibold cursor-pointer"
               >
                 ✕ Tutup
               </button>
@@ -335,20 +333,20 @@ export const CashierView: React.FC = () => {
 
             <form onSubmit={handleSubmitPayment} className="p-5 space-y-4 text-xs">
               {/* Info Header */}
-              <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 space-y-1">
                 <div className="flex justify-between">
-                  <span className="text-zinc-400">Petani / Penerima:</span>
-                  <strong className="text-zinc-200">{activePaymentRecord.supplierName}</strong>
+                  <span className="text-zinc-600 dark:text-zinc-400">Petani / Penerima:</span>
+                  <strong className="text-zinc-900 dark:text-zinc-200">{activePaymentRecord.supplierName}</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-zinc-400">Nopol & Supir:</span>
-                  <span className="font-mono text-zinc-200">{activePaymentRecord.vehiclePlate} ({activePaymentRecord.driverName})</span>
+                  <span className="text-zinc-600 dark:text-zinc-400">Nopol & Supir:</span>
+                  <span className="font-mono text-zinc-900 dark:text-zinc-200">{activePaymentRecord.vehiclePlate} ({activePaymentRecord.driverName})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-zinc-400">Netto Bersih Diterima:</span>
-                  <strong className="text-emerald-400 font-mono">{formatKg(activePaymentRecord.netCleanWeight)}</strong>
+                  <span className="text-zinc-600 dark:text-zinc-400">Netto Bersih Diterima:</span>
+                  <strong className="text-emerald-700 dark:text-emerald-400 font-mono">{formatKg(activePaymentRecord.netCleanWeight)}</strong>
                 </div>
-                <div className="flex justify-between font-bold pt-1 border-t border-zinc-800 text-zinc-200">
+                <div className="flex justify-between font-bold pt-1 border-t border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-200">
                   <span>Subtotal Kotor Buah:</span>
                   <span className="font-mono">{formatRupiah(activePaymentRecord.grossAmount)}</span>
                 </div>
@@ -356,7 +354,7 @@ export const CashierView: React.FC = () => {
 
               {/* Payment Method Selector */}
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
                   Metode Pembayaran:
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -373,8 +371,8 @@ export const CashierView: React.FC = () => {
                         onClick={() => setPaymentMethod(m.id as 'CASH' | 'TRANSFER' | 'BON')}
                         className={`py-2 px-2 rounded-lg border flex flex-col items-center gap-1 transition-all cursor-pointer ${
                           paymentMethod === m.id
-                            ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300'
-                            : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-zinc-200'
+                            ? 'bg-emerald-50 border-emerald-500 text-emerald-800 dark:bg-emerald-950/80 dark:border-emerald-500 dark:text-emerald-300'
+                            : 'bg-zinc-50 dark:bg-zinc-950 border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
                         }`}
                       >
                         <Icon className="w-4 h-4" />
@@ -388,11 +386,11 @@ export const CashierView: React.FC = () => {
               {/* Loan Deduction Input */}
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="text-xs font-semibold text-zinc-300">
+                  <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
                     Potong Kasbon Petani (Rp):
                   </label>
                   {activeSupplier && activeSupplier.debtBalance > 0 && (
-                    <span className="text-amber-400 text-[11px]">
+                    <span className="text-amber-600 dark:text-amber-400 text-[11px] font-medium">
                       Sisa Hutang: {formatRupiah(activeSupplier.debtBalance)}
                     </span>
                   )}
@@ -404,27 +402,27 @@ export const CashierView: React.FC = () => {
                   value={loanDeductInput || ''}
                   onChange={(e) => setLoanDeductInput(parseInt(e.target.value, 10) || 0)}
                   placeholder="0"
-                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-amber-300 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-amber-700 dark:text-amber-300 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               {/* Final Payable Alert */}
-              <div className="p-3 bg-emerald-950/40 border border-emerald-800/80 rounded-lg flex items-center justify-between">
+              <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800/80 rounded-lg flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] text-zinc-400 block">TOTAL BERSIH DIBAYAR KE PETANI:</span>
+                  <span className="text-[11px] text-zinc-700 dark:text-zinc-400 block font-medium">TOTAL BERSIH DIBAYAR KE PETANI:</span>
                   <span className="text-xs text-zinc-500">
                     {paymentMethod === 'CASH' ? 'Uang tunai diserahkan kasir' : paymentMethod === 'TRANSFER' ? 'Kirim ke rekening petani' : 'Catat nota tempo'}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-lg font-black font-mono text-emerald-400">
+                  <span className="text-lg font-black font-mono text-emerald-700 dark:text-emerald-400">
                     {formatRupiah(finalPayable)}
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
                   Catatan Kasir:
                 </label>
                 <input
@@ -432,7 +430,7 @@ export const CashierView: React.FC = () => {
                   placeholder="Contoh: Dibayarkan langsung ke Pak Syamsuddin"
                   value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
-                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-zinc-300 text-xs focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-lg text-zinc-900 dark:text-zinc-300 text-xs focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -440,7 +438,7 @@ export const CashierView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setActivePaymentRecord(null)}
-                  className="flex-1 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 text-xs font-semibold transition-colors cursor-pointer border border-zinc-300 dark:border-zinc-700"
                 >
                   Batal
                 </button>
@@ -458,18 +456,18 @@ export const CashierView: React.FC = () => {
 
       {/* Modal: Add Manual Cash Transaction */}
       {showAddCashModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl max-w-md w-full overflow-hidden transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Wallet className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-sm font-bold text-zinc-100 uppercase">
+                <Wallet className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase">
                   Input Mutasi Kas Ramp
                 </h3>
               </div>
               <button
                 onClick={() => setShowAddCashModal(false)}
-                className="text-zinc-400 hover:text-white text-xs font-semibold cursor-pointer"
+                className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-xs font-semibold cursor-pointer"
               >
                 ✕ Tutup
               </button>
@@ -483,8 +481,8 @@ export const CashierView: React.FC = () => {
                   onClick={() => setCashTxType('IN')}
                   className={`py-2 rounded-lg font-bold border transition-colors cursor-pointer ${
                     cashTxType === 'IN'
-                      ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300'
-                      : 'bg-zinc-950 border-zinc-800 text-zinc-400'
+                      ? 'bg-emerald-50 border-emerald-500 text-emerald-800 dark:bg-emerald-950/80 dark:border-emerald-500 dark:text-emerald-300'
+                      : 'bg-zinc-50 dark:bg-zinc-950 border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-400'
                   }`}
                 >
                   + Kas Masuk (Penerimaan)
@@ -494,8 +492,8 @@ export const CashierView: React.FC = () => {
                   onClick={() => setCashTxType('OUT')}
                   className={`py-2 rounded-lg font-bold border transition-colors cursor-pointer ${
                     cashTxType === 'OUT'
-                      ? 'bg-rose-950/80 border-rose-500 text-rose-300'
-                      : 'bg-zinc-950 border-zinc-800 text-zinc-400'
+                      ? 'bg-rose-50 border-rose-500 text-rose-800 dark:bg-rose-950/80 dark:border-rose-500 dark:text-rose-300'
+                      : 'bg-zinc-50 dark:bg-zinc-950 border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-400'
                   }`}
                 >
                   - Kas Keluar (Pengeluaran)
@@ -503,13 +501,13 @@ export const CashierView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                   Kategori:
                 </label>
                 <select
                   value={cashCategory}
                   onChange={(e) => setCashCategory(e.target.value as CashTransaction['category'])}
-                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-200 focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-200 focus:outline-none focus:border-emerald-500"
                 >
                   {cashTxType === 'IN' ? (
                     <>
@@ -530,14 +528,14 @@ export const CashierView: React.FC = () => {
 
               {cashCategory === 'KASBON_PETANI' && (
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                  <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                     Pilih Petani Penerima Pinjaman:
                   </label>
                   <select
                     required
                     value={cashSupplierId}
                     onChange={(e) => setCashSupplierId(e.target.value)}
-                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-200 focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-200 focus:outline-none focus:border-emerald-500"
                   >
                     <option value="">-- Pilih Petani --</option>
                     {suppliers.map(s => (
@@ -548,7 +546,7 @@ export const CashierView: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
                   Nominal (Rp):
                 </label>
                 <input
@@ -558,12 +556,12 @@ export const CashierView: React.FC = () => {
                   placeholder="Contoh: 5000000"
                   value={cashAmount || ''}
                   onChange={(e) => setCashAmount(parseInt(e.target.value, 10) || 0)}
-                  className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-base font-bold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 font-mono text-base font-bold focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                <label className="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
                   Keterangan:
                 </label>
                 <input
@@ -571,7 +569,7 @@ export const CashierView: React.FC = () => {
                   placeholder="Keterangan transaksi..."
                   value={cashDesc}
                   onChange={(e) => setCashDesc(e.target.value)}
-                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-zinc-300 focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-lg text-zinc-900 dark:text-zinc-300 focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -579,7 +577,7 @@ export const CashierView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowAddCashModal(false)}
-                  className="flex-1 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 text-xs font-semibold transition-colors cursor-pointer border border-zinc-300 dark:border-zinc-700"
                 >
                   Batal
                 </button>

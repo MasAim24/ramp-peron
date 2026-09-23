@@ -28,7 +28,6 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
     zeroScale, 
     isSimulatorActive, 
     triggerScalePreset,
-    setLiveWeight,
     scaleConfig,
     companySettings
   } = useApp();
@@ -55,15 +54,15 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
   const isOverload = liveWeight > companySettings.maxBridgeCapacityKg;
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-lg">
+    <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm transition-colors">
       {/* Top Terminal Header */}
-      <div className="px-4 py-2 bg-zinc-950 border-b border-zinc-800/80 flex items-center justify-between text-xs text-zinc-400">
+      <div className="px-4 py-2 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-zinc-300 tracking-wider font-mono">DIGITAL INDICATOR</span>
-          <span className="px-1.5 py-0.5 rounded bg-zinc-900 text-zinc-400 font-mono text-[10px] border border-zinc-800">
+          <span className="font-semibold text-zinc-800 dark:text-zinc-300 tracking-wider font-mono">DIGITAL INDICATOR</span>
+          <span className="px-1.5 py-0.5 rounded bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-400 font-mono text-[10px] border border-zinc-300 dark:border-zinc-800 shadow-2xs">
             {scaleConfig.indicatorModel}
           </span>
-          <span className="text-zinc-600 font-mono text-[11px] hidden sm:inline">
+          <span className="text-zinc-500 dark:text-zinc-600 font-mono text-[11px] hidden sm:inline">
             RS-232 / 9600-8-N-1
           </span>
         </div>
@@ -71,7 +70,7 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowSimulatorPanel(prev => !prev)}
-            className="flex items-center gap-1 text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
+            className="flex items-center gap-1 text-[11px] text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors cursor-pointer"
           >
             <Sliders className="w-3.5 h-3.5 text-zinc-500" />
             <span>{showSimulatorPanel ? 'Sembunyikan Panel Uji' : 'Panel Uji Timbangan'}</span>
@@ -80,10 +79,10 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
       </div>
 
       {/* Main Digital Display Chamber */}
-      <div className="p-4 sm:p-5 bg-gradient-to-b from-zinc-950 to-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Left: LCD Digits & Status Flags */}
+      <div className="p-4 sm:p-5 bg-zinc-50 dark:bg-gradient-to-b dark:from-zinc-950 dark:to-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800/60">
+        {/* Left: Industrial LCD Digits & Status Flags (High contrast chamber) */}
         <div className="w-full md:w-auto flex-1">
-          <div className="bg-black/80 rounded-lg p-3 sm:p-4 border border-zinc-800 shadow-inner flex flex-col justify-between">
+          <div className="bg-zinc-950 rounded-lg p-3 sm:p-4 border border-zinc-800 shadow-inner flex flex-col justify-between">
             {/* Status Flags Row */}
             <div className="flex items-center justify-between text-[11px] font-mono border-b border-zinc-800/60 pb-2 mb-2">
               <div className="flex items-center gap-3">
@@ -145,7 +144,7 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
             className={`w-full md:w-48 px-4 py-3 rounded-lg font-bold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer ${
               isScaleStable 
                 ? 'bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] text-white border border-emerald-500' 
-                : 'bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700/50'
+                : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 cursor-not-allowed border border-zinc-300 dark:border-zinc-700/50'
             }`}
           >
             <ArrowDownToLine className="w-4 h-4 translate-x-[0.5px]" />
@@ -155,7 +154,7 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
           {/* Zero Button */}
           <button
             onClick={zeroScale}
-            className="w-full md:w-48 px-3 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-750 text-zinc-300 hover:text-white border border-zinc-700/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+            className="w-full md:w-48 px-3 py-2.5 rounded-lg bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-750 text-zinc-800 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white border border-zinc-300 dark:border-zinc-700/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>NOLKAN (ZERO)</span>
@@ -165,13 +164,13 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
 
       {/* Simulator Toolbar (Collapsible) */}
       {showSimulatorPanel && (
-        <div className="p-3 bg-zinc-950/70 border-t border-zinc-800/80 text-xs">
+        <div className="p-3 bg-zinc-100 dark:bg-zinc-950/70 border-t border-zinc-200 dark:border-zinc-800/80 text-xs transition-colors">
           <div className="flex items-center justify-between gap-2 mb-2">
-            <span className="text-zinc-400 font-medium flex items-center gap-1.5">
-              <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="text-zinc-700 dark:text-zinc-400 font-medium flex items-center gap-1.5">
+              <Cpu className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Simulasi Uji Berat Platform (Klik untuk menempatkan truk di jembatan timbang):</span>
             </span>
-            <span className="text-[11px] text-zinc-500">Target input: <strong className="text-zinc-300">{targetInputLabel}</strong></span>
+            <span className="text-[11px] text-zinc-500">Target input: <strong className="text-zinc-800 dark:text-zinc-300">{targetInputLabel}</strong></span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-2">
@@ -179,10 +178,10 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
               <button
                 key={idx}
                 onClick={() => triggerScalePreset(preset.nominalKg)}
-                className={`px-2 py-1.5 rounded text-[11px] text-left border transition-all truncate cursor-pointer ${
+                className={`px-2 py-1.5 rounded text-[11px] text-left border transition-all truncate cursor-pointer shadow-2xs ${
                   liveWeight === preset.nominalKg
-                    ? 'bg-emerald-950/60 border-emerald-600 text-emerald-300 font-semibold'
-                    : 'bg-zinc-900 hover:bg-zinc-800 border-zinc-800 text-zinc-300'
+                    ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 dark:border-emerald-600 text-emerald-800 dark:text-emerald-300 font-bold'
+                    : 'bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'
                 }`}
               >
                 {preset.label}
@@ -191,18 +190,18 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
           </div>
 
           {/* Custom Manual Weight Input Form */}
-          <form onSubmit={handleApplyCustomWeight} className="flex items-center gap-2 pt-1 border-t border-zinc-800/40">
-            <span className="text-zinc-500 text-[11px] whitespace-nowrap">Input Manual Beban Uji:</span>
+          <form onSubmit={handleApplyCustomWeight} className="flex items-center gap-2 pt-1 border-t border-zinc-200 dark:border-zinc-800/40">
+            <span className="text-zinc-600 dark:text-zinc-500 text-[11px] whitespace-nowrap">Input Manual Beban Uji:</span>
             <input
               type="number"
               placeholder="Contoh: 12450"
               value={customWeightInput}
               onChange={(e) => setCustomWeightInput(e.target.value)}
-              className="px-2.5 py-1 bg-zinc-900 border border-zinc-700 rounded text-zinc-200 text-xs w-32 focus:outline-none focus:border-emerald-500 font-mono"
+              className="px-2.5 py-1 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 text-xs w-32 focus:outline-none focus:border-emerald-500 font-mono"
             />
             <button
               type="submit"
-              className="px-3 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 rounded text-xs font-medium cursor-pointer"
+              className="px-3 py-1 bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 rounded text-xs font-medium cursor-pointer shadow-2xs"
             >
               Terapkan Beban
             </button>

@@ -8,10 +8,10 @@ import {
   Trash2, 
   Search, 
   Check, 
-  X,
-  CreditCard,
-  MapPin,
-  Phone
+  X, 
+  CreditCard, 
+  MapPin, 
+  Phone 
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Supplier, PalmOilMill, Vehicle, FruitGrade } from '../types';
@@ -31,7 +31,6 @@ export const MasterDataView: React.FC = () => {
   } = useApp();
 
   const [activeTab, setActiveTab] = useState<'SUPPLIERS' | 'MILLS' | 'VEHICLES'>('SUPPLIERS');
-  const [searchQuery, setSearchQuery] = useState<string>('');
 
   // Modals
   const [showSupplierModal, setShowSupplierModal] = useState<boolean>(false);
@@ -225,14 +224,14 @@ export const MasterDataView: React.FC = () => {
   return (
     <div className="space-y-5">
       {/* Tab Switcher & Action Toolbar */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-2xs transition-colors">
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setActiveTab('SUPPLIERS')}
             className={`px-3.5 py-2 rounded-lg text-xs font-bold tracking-wide flex items-center gap-2 transition-all cursor-pointer ${
               activeTab === 'SUPPLIERS'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800'
             }`}
           >
             <Users className="w-4 h-4" />
@@ -244,7 +243,7 @@ export const MasterDataView: React.FC = () => {
             className={`px-3.5 py-2 rounded-lg text-xs font-bold tracking-wide flex items-center gap-2 transition-all cursor-pointer ${
               activeTab === 'MILLS'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800'
             }`}
           >
             <Building2 className="w-4 h-4" />
@@ -256,7 +255,7 @@ export const MasterDataView: React.FC = () => {
             className={`px-3.5 py-2 rounded-lg text-xs font-bold tracking-wide flex items-center gap-2 transition-all cursor-pointer ${
               activeTab === 'VEHICLES'
                 ? 'bg-emerald-600 text-white shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800'
             }`}
           >
             <Truck className="w-4 h-4" />
@@ -299,11 +298,11 @@ export const MasterDataView: React.FC = () => {
 
       {/* TAB 1: SUPPLIERS TABLE */}
       {activeTab === 'SUPPLIERS' && (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-zinc-950/80 border-b border-zinc-800 text-zinc-400 font-semibold font-mono text-[11px]">
+                <tr className="bg-zinc-100 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-semibold font-mono text-[11px]">
                   <th className="py-2.5 px-3">KODE & NAMA</th>
                   <th className="py-2.5 px-3">NIK & HP</th>
                   <th className="py-2.5 px-3">LOKASI & LAHAN</th>
@@ -313,36 +312,36 @@ export const MasterDataView: React.FC = () => {
                   <th className="py-2.5 px-3 text-center">AKSI</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800/60">
+              <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/60 font-sans">
                 {suppliers.map(sup => (
-                  <tr key={sup.id} className="hover:bg-zinc-850/50 transition-colors">
+                  <tr key={sup.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-850/50 transition-colors">
                     <td className="py-3 px-3">
-                      <strong className="text-zinc-200 block text-xs">{sup.name}</strong>
+                      <strong className="text-zinc-900 dark:text-zinc-200 block text-xs">{sup.name}</strong>
                       <span className="font-mono text-[10px] text-zinc-500">[{sup.code}]</span>
                     </td>
-                    <td className="py-3 px-3 text-zinc-400">
-                      <div className="font-mono text-[11px]">{sup.phone}</div>
+                    <td className="py-3 px-3 text-zinc-600 dark:text-zinc-400">
+                      <div className="font-mono text-[11px] text-zinc-900 dark:text-zinc-200">{sup.phone}</div>
                       <div className="text-[10px] text-zinc-500">NIK: {sup.nik || '-'}</div>
                     </td>
-                    <td className="py-3 px-3 text-zinc-300">
+                    <td className="py-3 px-3 text-zinc-800 dark:text-zinc-300">
                       <div>{sup.location}</div>
                       <div className="text-[10px] text-zinc-500">
                         {sup.landAreaHa} Ha &bull; {sup.palmAgeYears} Thn ({sup.variety})
                       </div>
                     </td>
-                    <td className="py-3 px-3 font-mono text-zinc-300">
+                    <td className="py-3 px-3 font-mono text-zinc-800 dark:text-zinc-300">
                       <div>{sup.bankName}</div>
-                      <div className="text-[11px] text-zinc-400">{sup.bankAccount || '-'}</div>
+                      <div className="text-[11px] text-zinc-500 dark:text-zinc-400">{sup.bankAccount || '-'}</div>
                     </td>
                     <td className="py-3 px-3 text-right font-mono">
                       {sup.debtBalance > 0 ? (
-                        <strong className="text-amber-400 font-bold">{formatRupiah(sup.debtBalance)}</strong>
+                        <strong className="text-amber-700 dark:text-amber-400 font-bold">{formatRupiah(sup.debtBalance)}</strong>
                       ) : (
                         <span className="text-zinc-500">Rp 0 (Lunas)</span>
                       )}
                     </td>
                     <td className="py-3 px-3 text-center">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-800 text-zinc-300 border border-zinc-700">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
                         {sup.defaultGrade}
                       </span>
                     </td>
@@ -350,7 +349,7 @@ export const MasterDataView: React.FC = () => {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => openSupplierForm(sup)}
-                          className="p-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors cursor-pointer"
+                          className="p-1.5 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer shadow-2xs"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
@@ -360,7 +359,7 @@ export const MasterDataView: React.FC = () => {
                               deleteSupplier(sup.id);
                             }
                           }}
-                          className="p-1.5 rounded bg-zinc-800 hover:bg-rose-950 text-zinc-500 hover:text-rose-400 transition-colors cursor-pointer"
+                          className="p-1.5 rounded bg-zinc-100 hover:bg-rose-100 dark:bg-zinc-800 dark:hover:bg-rose-950 text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer shadow-2xs"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -376,11 +375,11 @@ export const MasterDataView: React.FC = () => {
 
       {/* TAB 2: MILLS TABLE */}
       {activeTab === 'MILLS' && (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-zinc-950/80 border-b border-zinc-800 text-zinc-400 font-semibold font-mono text-[11px]">
+                <tr className="bg-zinc-100 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-semibold font-mono text-[11px]">
                   <th className="py-2.5 px-3">KODE & PKS</th>
                   <th className="py-2.5 px-3">ALAMAT & JARAK</th>
                   <th className="py-2.5 px-3">PIC & TELEPON</th>
@@ -390,35 +389,35 @@ export const MasterDataView: React.FC = () => {
                   <th className="py-2.5 px-3 text-center">AKSI</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800/60">
+              <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/60 font-sans">
                 {mills.map(mill => (
-                  <tr key={mill.id} className="hover:bg-zinc-850/50 transition-colors">
+                  <tr key={mill.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-850/50 transition-colors">
                     <td className="py-3 px-3">
-                      <strong className="text-zinc-200 block text-xs">{mill.name}</strong>
+                      <strong className="text-zinc-900 dark:text-zinc-200 block text-xs">{mill.name}</strong>
                       <span className="font-mono text-[10px] text-zinc-500">[{mill.code}]</span>
                     </td>
-                    <td className="py-3 px-3 text-zinc-300">
+                    <td className="py-3 px-3 text-zinc-800 dark:text-zinc-300">
                       <div>{mill.address}</div>
                       <span className="text-[11px] text-zinc-500 font-mono">Jarak: {mill.distanceKm} km</span>
                     </td>
-                    <td className="py-3 px-3 text-zinc-400">
-                      <div>{mill.contactPerson}</div>
+                    <td className="py-3 px-3 text-zinc-600 dark:text-zinc-400">
+                      <div className="text-zinc-900 dark:text-zinc-200">{mill.contactPerson}</div>
                       <span className="font-mono text-[11px] text-zinc-500">{mill.phone}</span>
                     </td>
-                    <td className="py-3 px-3 text-right font-mono font-bold text-emerald-400">
+                    <td className="py-3 px-3 text-right font-mono font-bold text-emerald-700 dark:text-emerald-400">
                       {formatRupiah(mill.contractPricePerKg)} / kg
                     </td>
-                    <td className="py-3 px-3 text-center font-mono font-semibold text-zinc-300">
+                    <td className="py-3 px-3 text-center font-mono font-semibold text-zinc-800 dark:text-zinc-300">
                       &le; {mill.toleranceShrinkPercent}%
                     </td>
-                    <td className="py-3 px-3 text-zinc-300 font-medium">
+                    <td className="py-3 px-3 text-zinc-800 dark:text-zinc-300 font-medium">
                       {mill.paymentTerms}
                     </td>
                     <td className="py-3 px-3 text-center">
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => openMillForm(mill)}
-                          className="p-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors cursor-pointer"
+                          className="p-1.5 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer shadow-2xs"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
@@ -428,7 +427,7 @@ export const MasterDataView: React.FC = () => {
                               deleteMill(mill.id);
                             }
                           }}
-                          className="p-1.5 rounded bg-zinc-800 hover:bg-rose-950 text-zinc-500 hover:text-rose-400 transition-colors cursor-pointer"
+                          className="p-1.5 rounded bg-zinc-100 hover:bg-rose-100 dark:bg-zinc-800 dark:hover:bg-rose-950 text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer shadow-2xs"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -444,11 +443,11 @@ export const MasterDataView: React.FC = () => {
 
       {/* TAB 3: VEHICLES TABLE */}
       {activeTab === 'VEHICLES' && (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-zinc-950/80 border-b border-zinc-800 text-zinc-400 font-semibold font-mono text-[11px]">
+                <tr className="bg-zinc-100 dark:bg-zinc-950/80 border-b border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 font-semibold font-mono text-[11px]">
                   <th className="py-2.5 px-3">NOPOL TRUK</th>
                   <th className="py-2.5 px-3">JENIS ARMADA</th>
                   <th className="py-2.5 px-3">SUPIR UTAMA</th>
@@ -458,30 +457,30 @@ export const MasterDataView: React.FC = () => {
                   <th className="py-2.5 px-3 text-center">AKSI</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800/60">
+              <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/60 font-sans">
                 {vehicles.map(veh => (
-                  <tr key={veh.id} className="hover:bg-zinc-850/50 transition-colors">
-                    <td className="py-3 px-3 font-mono font-bold text-zinc-200">
+                  <tr key={veh.id} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-850/50 transition-colors">
+                    <td className="py-3 px-3 font-mono font-bold text-zinc-900 dark:text-zinc-200">
                       {veh.plateNumber}
                     </td>
-                    <td className="py-3 px-3 text-zinc-300">
+                    <td className="py-3 px-3 text-zinc-800 dark:text-zinc-300">
                       {veh.type.replace('_', ' ')}
                     </td>
                     <td className="py-3 px-3">
-                      <div className="font-semibold text-zinc-200">{veh.driverName}</div>
+                      <div className="font-semibold text-zinc-900 dark:text-zinc-200">{veh.driverName}</div>
                       <div className="text-[10px] text-zinc-500 font-mono">{veh.driverPhone}</div>
                     </td>
-                    <td className="py-3 px-3 text-right font-mono text-zinc-300">
+                    <td className="py-3 px-3 text-right font-mono text-zinc-700 dark:text-zinc-300">
                       {formatKg(veh.tareAverageKg)}
                     </td>
-                    <td className="py-3 px-3 text-right font-mono font-bold text-zinc-100">
+                    <td className="py-3 px-3 text-right font-mono font-bold text-zinc-900 dark:text-zinc-100">
                       {formatKg(veh.maxCapacityKg)}
                     </td>
                     <td className="py-3 px-3 text-center">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         veh.ownership === 'INTERNAL'
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                          : 'bg-zinc-800 text-zinc-400 border border-zinc-700'
+                          ? 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30'
+                          : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'
                       }`}>
                         {veh.ownership}
                       </span>
@@ -490,7 +489,7 @@ export const MasterDataView: React.FC = () => {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => openVehicleForm(veh)}
-                          className="p-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors cursor-pointer"
+                          className="p-1.5 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer shadow-2xs"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
@@ -500,7 +499,7 @@ export const MasterDataView: React.FC = () => {
                               deleteVehicle(veh.id);
                             }
                           }}
-                          className="p-1.5 rounded bg-zinc-800 hover:bg-rose-950 text-zinc-500 hover:text-rose-400 transition-colors cursor-pointer"
+                          className="p-1.5 rounded bg-zinc-100 hover:bg-rose-100 dark:bg-zinc-800 dark:hover:bg-rose-950 text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer shadow-2xs"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -516,99 +515,99 @@ export const MasterDataView: React.FC = () => {
 
       {/* Modal: Add/Edit Supplier */}
       {showSupplierModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-zinc-100 uppercase">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase">
                 {editingSupplier ? 'Edit Data Petani' : 'Pendaftaran Petani / Supplier Baru'}
               </h3>
-              <button onClick={() => setShowSupplierModal(false)} className="text-zinc-400 hover:text-white text-xs cursor-pointer">✕</button>
+              <button onClick={() => setShowSupplierModal(false)} className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-xs cursor-pointer">✕</button>
             </div>
 
             <form onSubmit={handleSaveSupplier} className="p-5 space-y-3.5 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Kode Petani:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Kode Petani:</label>
                   <input
                     type="text"
                     required
                     value={supCode}
                     onChange={(e) => setSupCode(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nama Lengkap / Kelompok:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nama Lengkap / Kelompok:</label>
                   <input
                     type="text"
                     required
                     value={supName}
                     onChange={(e) => setSupName(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">No. KTP / NIK:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">No. KTP / NIK:</label>
                   <input
                     type="text"
                     value={supNik}
                     onChange={(e) => setSupNik(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">No. WhatsApp / HP:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">No. WhatsApp / HP:</label>
                   <input
                     type="text"
                     required
                     value={supPhone}
                     onChange={(e) => setSupPhone(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Lokasi Kebun & Desa:</label>
+                <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Lokasi Kebun & Desa:</label>
                 <input
                   type="text"
                   required
                   placeholder="Contoh: Desa Bukit Kemuning, Blok C"
                   value={supLocation}
                   onChange={(e) => setSupLocation(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                  className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Luas Lahan (Ha):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Luas Lahan (Ha):</label>
                   <input
                     type="number"
                     step="0.5"
                     value={supLandArea}
                     onChange={(e) => setSupLandArea(parseFloat(e.target.value) || 0)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Usia Sawit (Thn):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Usia Sawit (Thn):</label>
                   <input
                     type="number"
                     value={supPalmAge}
                     onChange={(e) => setSupPalmAge(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Grade Utama:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Grade Utama:</label>
                   <select
                     value={supGrade}
                     onChange={(e) => setSupGrade(e.target.value as FruitGrade)}
-                    className="w-full px-2 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   >
                     <option value="SUPER">SUPER</option>
                     <option value="GRADE_A">GRADE A</option>
@@ -619,21 +618,21 @@ export const MasterDataView: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nama Bank:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nama Bank:</label>
                   <input
                     type="text"
                     value={supBankName}
                     onChange={(e) => setSupBankName(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nomor Rekening:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nomor Rekening:</label>
                   <input
                     type="text"
                     value={supBankAccount}
                     onChange={(e) => setSupBankAccount(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
               </div>
@@ -642,7 +641,7 @@ export const MasterDataView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowSupplierModal(false)}
-                  className="flex-1 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer"
+                  className="flex-1 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 cursor-pointer border border-zinc-300 dark:border-zinc-700"
                 >
                   Batal
                 </button>
@@ -660,110 +659,110 @@ export const MasterDataView: React.FC = () => {
 
       {/* Modal: Add/Edit Mill */}
       {showMillModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-zinc-100 uppercase">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase">
                 {editingMill ? 'Edit Data PKS' : 'Tambah Pabrik Kelapa Sawit (PKS) Tujuan'}
               </h3>
-              <button onClick={() => setShowMillModal(false)} className="text-zinc-400 hover:text-white text-xs cursor-pointer">✕</button>
+              <button onClick={() => setShowMillModal(false)} className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-xs cursor-pointer">✕</button>
             </div>
 
             <form onSubmit={handleSaveMill} className="p-5 space-y-3.5 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Kode PKS:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Kode PKS:</label>
                   <input
                     type="text"
                     required
                     value={millCode}
                     onChange={(e) => setMillCode(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nama Pabrik Sawit (PKS):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nama Pabrik Sawit (PKS):</label>
                   <input
                     type="text"
                     required
                     value={millName}
                     onChange={(e) => setMillName(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Alamat Lokasi Pabrik:</label>
+                <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Alamat Lokasi Pabrik:</label>
                 <input
                   type="text"
                   required
                   value={millAddress}
                   onChange={(e) => setMillAddress(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                  className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Jarak dari Ramp (Km):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Jarak dari Ramp (Km):</label>
                   <input
                     type="number"
                     value={millDistance}
                     onChange={(e) => setMillDistance(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Harga Kontrak Beli PKS (Rp/Kg):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Harga Kontrak Beli PKS (Rp/Kg):</label>
                   <input
                     type="number"
                     value={millPrice}
                     onChange={(e) => setMillPrice(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono font-bold text-emerald-400"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-emerald-700 dark:text-emerald-400 font-mono font-bold"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">PIC / Manajer Timbang:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">PIC / Manajer Timbang:</label>
                   <input
                     type="text"
                     value={millContact}
                     onChange={(e) => setMillContact(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">No. Kontak PKS:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">No. Kontak PKS:</label>
                   <input
                     type="text"
                     value={millPhone}
                     onChange={(e) => setMillPhone(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Toleransi Susut (%):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Toleransi Susut (%):</label>
                   <input
                     type="number"
                     step="0.1"
                     value={millTolerance}
                     onChange={(e) => setMillTolerance(parseFloat(e.target.value) || 0)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Syarat Pembayaran:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Syarat Pembayaran:</label>
                   <input
                     type="text"
                     value={millTerms}
                     onChange={(e) => setMillTerms(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
               </div>
@@ -772,7 +771,7 @@ export const MasterDataView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowMillModal(false)}
-                  className="flex-1 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer"
+                  className="flex-1 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 cursor-pointer border border-zinc-300 dark:border-zinc-700"
                 >
                   Batal
                 </button>
@@ -790,34 +789,34 @@ export const MasterDataView: React.FC = () => {
 
       {/* Modal: Add/Edit Vehicle */}
       {showVehicleModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-zinc-100 uppercase">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl max-w-md w-full overflow-hidden transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase">
                 {editingVehicle ? 'Edit Armada Truk' : 'Tambah Armada Truk & Supir'}
               </h3>
-              <button onClick={() => setShowVehicleModal(false)} className="text-zinc-400 hover:text-white text-xs cursor-pointer">✕</button>
+              <button onClick={() => setShowVehicleModal(false)} className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-xs cursor-pointer">✕</button>
             </div>
 
             <form onSubmit={handleSaveVehicle} className="p-5 space-y-3.5 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nomor Polisi:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nomor Polisi:</label>
                   <input
                     type="text"
                     required
                     placeholder="BM 8821 QC"
                     value={vehPlate}
                     onChange={(e) => setVehPlate(e.target.value.toUpperCase())}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-100 font-mono font-bold"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-100 font-mono font-bold"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Jenis Armada:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Jenis Armada:</label>
                   <select
                     value={vehType}
                     onChange={(e) => setVehType(e.target.value as Vehicle['type'])}
-                    className="w-full px-2 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   >
                     <option value="COLT_DIESEL">Colt Diesel Double (6 Roda)</option>
                     <option value="DUMP_TRUCK">Dump Truck</option>
@@ -829,53 +828,53 @@ export const MasterDataView: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nama Supir:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nama Supir:</label>
                   <input
                     type="text"
                     required
                     value={vehDriver}
                     onChange={(e) => setVehDriver(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">No. HP Supir:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">No. HP Supir:</label>
                   <input
                     type="text"
                     value={vehPhone}
                     onChange={(e) => setVehPhone(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Tara Standar (Kg):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Tara Standar (Kg):</label>
                   <input
                     type="number"
                     value={vehTare}
                     onChange={(e) => setVehTare(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Kapasitas Maksimal (Kg):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Kapasitas Maksimal (Kg):</label>
                   <input
                     type="number"
                     value={vehCap}
                     onChange={(e) => setVehCap(parseInt(e.target.value, 10) || 0)}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Status Kepemilikan:</label>
+                <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Status Kepemilikan:</label>
                 <select
                   value={vehOwnership}
                   onChange={(e) => setVehOwnership(e.target.value as Vehicle['ownership'])}
-                  className="w-full px-2 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                  className="w-full px-2 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                 >
                   <option value="INTERNAL">Armada Internal Ramp / Milik Sendiri</option>
                   <option value="EXPEDITION">Ekspedisi Sewa Pihak Ketiga</option>
@@ -887,7 +886,7 @@ export const MasterDataView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowVehicleModal(false)}
-                  className="flex-1 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 cursor-pointer"
+                  className="flex-1 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 cursor-pointer border border-zinc-300 dark:border-zinc-700"
                 >
                   Batal
                 </button>

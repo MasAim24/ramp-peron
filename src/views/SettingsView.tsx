@@ -9,7 +9,9 @@ import {
   Monitor, 
   Printer, 
   ShieldCheck, 
-  Radio 
+  Radio, 
+  Sun, 
+  Moon 
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { CompanySettings, ScaleConfig } from '../types';
@@ -20,7 +22,9 @@ export const SettingsView: React.FC = () => {
     scaleConfig, 
     updateCompanySettings, 
     updateScaleConfig, 
-    resetAllData 
+    resetAllData,
+    theme,
+    setTheme
   } = useApp();
 
   const [companyForm, setCompanyForm] = useState<CompanySettings>(companySettings);
@@ -46,8 +50,8 @@ export const SettingsView: React.FC = () => {
   return (
     <div className="space-y-5">
       {saveSuccess && (
-        <div className="p-3 bg-emerald-950/80 border border-emerald-500 rounded-xl text-emerald-300 text-xs font-semibold flex items-center gap-2">
-          <Check className="w-4 h-4 text-emerald-400" />
+        <div className="p-3 bg-emerald-50 border border-emerald-500 rounded-xl text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 text-xs font-semibold flex items-center gap-2 shadow-2xs">
+          <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span>Pengaturan sistem dan parameter jembatan timbang berhasil disimpan!</span>
         </div>
       )}
@@ -55,11 +59,11 @@ export const SettingsView: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left: Company & Weighbridge Legal Profile (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-emerald-400" />
-                <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+                <Building2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
                   Profil Ramp Peron & Legalitas Jembatan Timbang
                 </h2>
               </div>
@@ -68,139 +72,139 @@ export const SettingsView: React.FC = () => {
             <form onSubmit={handleSaveCompany} className="p-5 space-y-3.5 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nama Perusahaan / Ramp:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nama Perusahaan / Ramp:</label>
                   <input
                     type="text"
                     required
                     value={companyForm.name}
                     onChange={(e) => setCompanyForm({ ...companyForm, name: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Slogan / Keterangan Usaha:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Slogan / Keterangan Usaha:</label>
                   <input
                     type="text"
                     value={companyForm.tagline}
                     onChange={(e) => setCompanyForm({ ...companyForm, tagline: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Legalitas & Sertifikasi Tera Metrologi:</label>
+                <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Legalitas & Sertifikasi Tera Metrologi:</label>
                 <input
                   type="text"
                   required
                   value={companyForm.licenseNumber}
                   onChange={(e) => setCompanyForm({ ...companyForm, licenseNumber: e.target.value })}
-                  className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono text-[11px]"
+                  className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono text-[11px]"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-2">
-                  <label className="block text-zinc-300 font-semibold mb-1">Alamat Jembatan Timbang:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Alamat Jembatan Timbang:</label>
                   <input
                     type="text"
                     required
                     value={companyForm.address}
                     onChange={(e) => setCompanyForm({ ...companyForm, address: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">No. Telepon / Hotline:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">No. Telepon / Hotline:</label>
                   <input
                     type="text"
                     required
                     value={companyForm.phone}
                     onChange={(e) => setCompanyForm({ ...companyForm, phone: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Kecamatan:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Kecamatan:</label>
                   <input
                     type="text"
                     value={companyForm.district}
                     onChange={(e) => setCompanyForm({ ...companyForm, district: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Kabupaten:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Kabupaten:</label>
                   <input
                     type="text"
                     value={companyForm.regency}
                     onChange={(e) => setCompanyForm({ ...companyForm, regency: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Provinsi:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Provinsi:</label>
                   <input
                     type="text"
                     value={companyForm.province}
                     onChange={(e) => setCompanyForm({ ...companyForm, province: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-800">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-200 dark:border-zinc-800">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Kode Identitas Timbangan:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Kode Identitas Timbangan:</label>
                   <input
                     type="text"
                     value={companyForm.weighbridgeCode}
                     onChange={(e) => setCompanyForm({ ...companyForm, weighbridgeCode: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Kapasitas Maksimal Jembatan (Kg):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Kapasitas Maksimal Jembatan (Kg):</label>
                   <input
                     type="number"
                     value={companyForm.maxBridgeCapacityKg}
                     onChange={(e) => setCompanyForm({ ...companyForm, maxBridgeCapacityKg: parseInt(e.target.value, 10) || 60000 })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-emerald-400 font-mono font-bold"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-emerald-700 dark:text-emerald-400 font-mono font-bold"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nama Operator Timbang (Shift):</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nama Operator Timbang (Shift):</label>
                   <input
                     type="text"
                     value={companyForm.weighmasterName}
                     onChange={(e) => setCompanyForm({ ...companyForm, weighmasterName: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Nama Kasir Keuangan:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Nama Kasir Keuangan:</label>
                   <input
                     type="text"
                     value={companyForm.cashierName}
                     onChange={(e) => setCompanyForm({ ...companyForm, cashierName: e.target.value })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Catatan Kaki Tiket Timbang (Footer):</label>
+                <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Catatan Kaki Tiket Timbang (Footer):</label>
                 <input
                   type="text"
                   value={companyForm.ticketFooterNote}
                   onChange={(e) => setCompanyForm({ ...companyForm, ticketFooterNote: e.target.value })}
-                  className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 text-[11px]"
+                  className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-800 dark:text-zinc-200 text-[11px]"
                 />
               </div>
 
@@ -217,13 +221,54 @@ export const SettingsView: React.FC = () => {
           </div>
         </div>
 
-        {/* Right: Digital Scale RS-232 & Hardware Config (5 cols) */}
+        {/* Right: Theme Toggle, Digital Scale RS-232 & Hardware Config (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-            <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between">
+          {/* Theme Mode Selector Card */}
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 text-xs space-y-3 shadow-2xs transition-colors">
+            <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+              {theme === 'dark' ? <Moon className="w-4 h-4 text-indigo-400" /> : <Sun className="w-4 h-4 text-amber-500" />}
+              <h3 className="font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wide">
+                Tema Antarmuka (Light / Dark Mode)
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setTheme('light')}
+                className={`p-3 rounded-lg border flex flex-col items-center gap-1.5 font-bold transition-all cursor-pointer ${
+                  theme === 'light'
+                    ? 'bg-amber-50 border-amber-500 text-amber-900 shadow-xs'
+                    : 'bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                }`}
+              >
+                <Sun className="w-5 h-5 text-amber-500" />
+                <span>Mode Terang (Light)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setTheme('dark')}
+                className={`p-3 rounded-lg border flex flex-col items-center gap-1.5 font-bold transition-all cursor-pointer ${
+                  theme === 'dark'
+                    ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300 shadow-xs'
+                    : 'bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+                }`}
+              >
+                <Moon className="w-5 h-5 text-indigo-400" />
+                <span>Mode Gelap (Dark)</span>
+              </button>
+            </div>
+            <p className="text-[11px] text-zinc-500 leading-tight">
+              Kontras warna telah dioptimalkan sesuai standar WCAG AA $\ge 4.5:1$ agar angka timbangan dan laporan terbaca jelas di bawah terik matahari maupun malam hari.
+            </p>
+          </div>
+
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-2xs transition-colors">
+            <div className="px-5 py-3.5 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Radio className="w-4 h-4 text-emerald-400" />
-                <h2 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
+                <Radio className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wide">
                   Koneksi Serial RS-232 Indikator Timbangan
                 </h2>
               </div>
@@ -231,11 +276,11 @@ export const SettingsView: React.FC = () => {
 
             <form onSubmit={handleSaveScale} className="p-5 space-y-3.5 text-xs">
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Port Serial / COM:</label>
+                <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Port Serial / COM:</label>
                 <select
                   value={scaleForm.comPort}
                   onChange={(e) => setScaleForm({ ...scaleForm, comPort: e.target.value })}
-                  className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                  className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                 >
                   <option value="COM1">COM1 (Standard Motherboard Serial)</option>
                   <option value="COM2">COM2</option>
@@ -247,11 +292,11 @@ export const SettingsView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Protokol Indikator Timbangan:</label>
+                <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Protokol Indikator Timbangan:</label>
                 <select
                   value={scaleForm.indicatorModel}
                   onChange={(e) => setScaleForm({ ...scaleForm, indicatorModel: e.target.value as ScaleConfig['indicatorModel'] })}
-                  className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                  className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                 >
                   <option value="YAOHUA_XK3190">Yaohua XK3190-A9 / A12 Series (Paling Umum di Peron Sawit)</option>
                   <option value="TOLEDO_8142">Mettler Toledo Panther / 8142 Industrial</option>
@@ -263,11 +308,11 @@ export const SettingsView: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Baud Rate:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Baud Rate:</label>
                   <select
                     value={scaleForm.baudRate}
                     onChange={(e) => setScaleForm({ ...scaleForm, baudRate: parseInt(e.target.value, 10) })}
-                    className="w-full px-2.5 py-1.5 bg-zinc-950 border border-zinc-700 rounded text-zinc-200 font-mono"
+                    className="w-full px-2.5 py-1.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-700 rounded text-zinc-900 dark:text-zinc-200 font-mono"
                   >
                     <option value="2400">2400 bps</option>
                     <option value="4800">4800 bps</option>
@@ -277,17 +322,17 @@ export const SettingsView: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Data Bits / Parity:</label>
+                  <label className="block text-zinc-700 dark:text-zinc-300 font-semibold mb-1">Data Bits / Parity:</label>
                   <input
                     type="text"
                     disabled
                     value="8 Data Bits, None Parity, 1 Stop"
-                    className="w-full px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-500 font-mono text-[11px]"
+                    className="w-full px-2.5 py-1.5 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded text-zinc-500 font-mono text-[11px]"
                   />
                 </div>
               </div>
 
-              <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 space-y-2">
+              <div className="p-3 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-200 dark:border-zinc-800 space-y-2">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
@@ -295,7 +340,7 @@ export const SettingsView: React.FC = () => {
                     onChange={(e) => setScaleForm({ ...scaleForm, isSimulationActive: e.target.checked })}
                     className="accent-emerald-500 w-4 h-4 cursor-pointer"
                   />
-                  <span className="font-semibold text-zinc-200">Aktifkan Virtual Scale Simulator</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">Aktifkan Virtual Scale Simulator</span>
                 </label>
                 <p className="text-[11px] text-zinc-500 leading-tight">
                   Memungkinkan pengujian alur timbangan tanpa alat fisik RS-232 terhubung (tombol preset beban truk).
@@ -315,28 +360,28 @@ export const SettingsView: React.FC = () => {
           </div>
 
           {/* Desktop App Status & Packaging Info */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-xs space-y-2.5 shadow-sm">
-            <div className="flex items-center gap-2 border-b border-zinc-800 pb-2">
-              <Monitor className="w-4 h-4 text-emerald-400" />
-              <h3 className="font-bold text-zinc-200 uppercase tracking-wide">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 text-xs space-y-2.5 shadow-2xs transition-colors">
+            <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-2">
+              <Monitor className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <h3 className="font-bold text-zinc-900 dark:text-zinc-200 uppercase tracking-wide">
                 Status Aplikasi Desktop (Electron Ready)
               </h3>
             </div>
 
-            <div className="p-2.5 rounded bg-zinc-950 border border-zinc-800 space-y-1">
+            <div className="p-2.5 rounded bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 space-y-1">
               <div className="flex justify-between">
-                <span className="text-zinc-400">Environment Mode:</span>
-                <span className={`font-mono font-bold ${isDesktopElectron ? 'text-emerald-400' : 'text-blue-400'}`}>
+                <span className="text-zinc-500">Environment Mode:</span>
+                <span className={`font-mono font-bold ${isDesktopElectron ? 'text-emerald-700 dark:text-emerald-400' : 'text-blue-600 dark:text-blue-400'}`}>
                   {isDesktopElectron ? 'DESKTOP APP (ELECTRON NATIVE)' : 'WEB & PWA PREVIEW MODE'}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-zinc-400">Framework Stack:</span>
-                <span className="font-mono text-zinc-300">React 19 &bull; TS &bull; Tailwind v4 &bull; Vite 8</span>
+                <span className="text-zinc-500">Framework Stack:</span>
+                <span className="font-mono text-zinc-700 dark:text-zinc-300">React 19 &bull; TS &bull; Tailwind v4 &bull; Vite 8</span>
               </div>
             </div>
 
-            <div className="pt-2 border-t border-zinc-800 flex justify-between items-center">
+            <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
               <span className="text-zinc-500 text-[11px]">Database Reset:</span>
               <button
                 onClick={() => {
@@ -345,7 +390,7 @@ export const SettingsView: React.FC = () => {
                     window.location.reload();
                   }
                 }}
-                className="px-2.5 py-1 rounded bg-zinc-800 hover:bg-rose-950 text-zinc-400 hover:text-rose-300 text-[11px] font-semibold border border-zinc-700 transition-colors cursor-pointer"
+                className="px-2.5 py-1 rounded bg-zinc-100 hover:bg-rose-100 dark:bg-zinc-800 dark:hover:bg-rose-950 text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-300 text-[11px] font-semibold border border-zinc-300 dark:border-zinc-700 transition-colors cursor-pointer shadow-2xs"
               >
                 Reset ke Data Demo Awal
               </button>

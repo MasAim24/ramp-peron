@@ -39,13 +39,13 @@ export const TicketPrintModal: React.FC<TicketPrintModalProps> = ({ record, onCl
   const isInbound = record.type === 'INBOUND';
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden flex flex-col my-8">
+    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl max-w-lg w-full overflow-hidden flex flex-col my-8 transition-colors">
         {/* Modal Action Header */}
-        <div className="px-5 py-3.5 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between no-print">
+        <div className="px-5 py-3.5 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between no-print">
           <div className="flex items-center gap-2">
-            <Printer className="w-4 h-4 text-emerald-400" />
-            <span className="font-semibold text-sm text-zinc-200">
+            <Printer className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span className="font-semibold text-sm text-zinc-900 dark:text-zinc-200">
               Slip Tiket Timbang Resmi ({record.ticketNumber})
             </span>
           </div>
@@ -61,7 +61,7 @@ export const TicketPrintModal: React.FC<TicketPrintModalProps> = ({ record, onCl
 
             <button
               onClick={onClose}
-              className="p-1.5 text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800 transition-colors cursor-pointer"
+              className="p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -69,10 +69,10 @@ export const TicketPrintModal: React.FC<TicketPrintModalProps> = ({ record, onCl
         </div>
 
         {/* Printable Ticket Receipt Canvas (Format Kertas Thermal 80mm & Bukti Timbang) */}
-        <div className="p-6 overflow-y-auto max-h-[75vh] bg-zinc-950/60 flex justify-center">
+        <div className="p-6 overflow-y-auto max-h-[75vh] bg-zinc-100 dark:bg-zinc-950/60 flex justify-center">
           <div 
             id="printable-receipt"
-            className="w-full max-w-[340px] bg-white text-zinc-900 font-mono text-[12px] p-5 rounded shadow-md border border-zinc-200 leading-tight"
+            className="w-full max-w-[340px] bg-white text-zinc-900 font-mono text-[12px] p-5 rounded shadow-md border border-zinc-300 leading-tight"
           >
             {/* Header Perusahaan */}
             <div className="text-center pb-3 border-b-2 border-dashed border-zinc-400">
@@ -260,7 +260,7 @@ export const TicketPrintModal: React.FC<TicketPrintModalProps> = ({ record, onCl
         </div>
 
         {/* Footer info */}
-        <div className="p-3 bg-zinc-950 border-t border-zinc-800 text-center text-xs text-zinc-400 no-print">
+        <div className="p-3 bg-zinc-100 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 text-center text-xs text-zinc-600 dark:text-zinc-400 no-print transition-colors">
           Mendukung pencetakan ke Mini Printer Thermal POS-80 (80mm) dan Printer Dot Matrix LX-310.
         </div>
       </div>
