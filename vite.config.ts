@@ -13,5 +13,9 @@ export default defineConfig({
     host: '0.0.0.0', // Listen on all local and LAN IP addresses (e.g. 192.168.101.4)
     port: 5180,
     strictPort: false
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 5180
   }
 })
