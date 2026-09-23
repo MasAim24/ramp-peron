@@ -79,39 +79,39 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
       </div>
 
       {/* Main Digital Display Chamber */}
-      <div className="p-4 sm:p-5 bg-zinc-50 dark:bg-gradient-to-b dark:from-zinc-950 dark:to-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800/60">
-        {/* Left: Industrial LCD Digits & Status Flags (High contrast chamber) */}
+      <div className="p-4 sm:p-5 bg-white dark:bg-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800/60">
+        {/* Left: Industrial LCD Digits & Status Flags (Light Industrial Slate in light mode, Dark High-Contrast in dark mode) */}
         <div className="w-full md:w-auto flex-1">
-          <div className="bg-zinc-950 rounded-lg p-3 sm:p-4 border border-zinc-800 shadow-inner flex flex-col justify-between">
+          <div className="bg-slate-100 dark:bg-zinc-950 rounded-xl p-3 sm:p-4 border border-slate-300 dark:border-zinc-800 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] dark:shadow-inner flex flex-col justify-between transition-colors">
             {/* Status Flags Row */}
-            <div className="flex items-center justify-between text-[11px] font-mono border-b border-zinc-800/60 pb-2 mb-2">
+            <div className="flex items-center justify-between text-[11px] font-mono border-b border-slate-200 dark:border-zinc-800/70 pb-2 mb-2">
               <div className="flex items-center gap-3">
                 {/* Stable LED */}
                 <span className={`inline-flex items-center gap-1 font-bold ${
-                  isScaleStable ? 'text-emerald-400' : 'text-amber-400 animate-pulse'
+                  isScaleStable ? 'text-emerald-800 dark:text-emerald-400' : 'text-amber-800 dark:text-amber-400 animate-pulse'
                 }`}>
                   <span className={`w-2 h-2 rounded-full ${
-                    isScaleStable ? 'bg-emerald-500' : 'bg-amber-500'
+                    isScaleStable ? 'bg-emerald-600 dark:bg-emerald-500' : 'bg-amber-600 dark:bg-amber-500'
                   }`}></span>
                   {isScaleStable ? 'STABLE' : 'MOTION'}
                 </span>
 
                 {/* Zero LED */}
                 <span className={`inline-flex items-center gap-1 ${
-                  isZero ? 'text-emerald-400 font-bold' : 'text-zinc-600'
+                  isZero ? 'text-emerald-800 dark:text-emerald-400 font-bold' : 'text-slate-400 dark:text-zinc-600'
                 }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${isZero ? 'bg-emerald-500' : 'bg-zinc-700'}`}></span>
+                  <span className={`w-1.5 h-1.5 rounded-full ${isZero ? 'bg-emerald-600 dark:bg-emerald-500' : 'bg-slate-300 dark:bg-zinc-700'}`}></span>
                   ZERO
                 </span>
 
                 {/* Gross / Net */}
-                <span className="text-zinc-400 font-semibold">
+                <span className="text-slate-600 dark:text-zinc-400 font-semibold">
                   {liveWeight > 0 ? 'GROSS' : 'IDLE'}
                 </span>
               </div>
 
               {isOverload && (
-                <span className="flex items-center gap-1 text-rose-400 font-bold animate-bounce">
+                <span className="flex items-center gap-1 text-rose-700 dark:text-rose-400 font-bold animate-bounce">
                   <AlertCircle className="w-3.5 h-3.5" /> OVERLOAD &gt; {companySettings.maxBridgeCapacityKg / 1000}T
                 </span>
               )}
@@ -121,14 +121,14 @@ export const DigitalScaleDisplay: React.FC<DigitalScaleDisplayProps> = ({
             <div className="flex items-baseline justify-between select-all">
               <div className={`text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight font-mono ${
                 isOverload 
-                  ? 'text-rose-500' 
+                  ? 'text-rose-600 dark:text-rose-500' 
                   : isScaleStable 
-                    ? 'text-emerald-400 digital-lcd' 
-                    : 'text-amber-400 digital-lcd-amber'
+                    ? 'text-emerald-800 dark:text-emerald-400 digital-lcd' 
+                    : 'text-amber-800 dark:text-amber-400 digital-lcd-amber'
               }`}>
                 {formatNumber(liveWeight)}
               </div>
-              <div className="text-xl sm:text-2xl font-bold font-mono text-zinc-500 ml-4">
+              <div className="text-xl sm:text-2xl font-bold font-mono text-slate-500 dark:text-zinc-500 ml-4">
                 KG
               </div>
             </div>

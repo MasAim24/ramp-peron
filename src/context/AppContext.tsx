@@ -106,7 +106,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [priceBoard, setPriceBoard] = useState<DailyPriceBoard>(() => loadStored('prices', initialPriceBoard));
   const [cashTransactions, setCashTransactions] = useState<CashTransaction[]>(() => loadStored('cash', initialCashTransactions));
   const [scaleConfig, setScaleConfig] = useState<ScaleConfig>(() => loadStored('scale', initialScaleConfig));
-  const [companySettings, setCompanySettings] = useState<CompanySettings>(() => loadStored('company', initialCompanySettings));
+  const [companySettings, setCompanySettings] = useState<CompanySettings>(() => {
+    const loaded = loadStored('company', initialCompanySettings);
+    if (loaded && !loaded.tagline.includes('Bapak Sameno')) {
+      loaded.tagline = `${loaded.tagline} (Milik Bapak Sameno)`;
+    }
+    return loaded;
+  });
 
   // Theme Management: Light & Dark Mode
   const [theme, setThemeState] = useState<'dark' | 'light'>(() => {

@@ -22,12 +22,16 @@
 /* Custom Corporate Digital Display Styling */
 .digital-lcd {
   font-family: var(--font-mono);
-  text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+.dark .digital-lcd {
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.45);
 }
 
 .digital-lcd-amber {
   font-family: var(--font-mono);
-  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+.dark .digital-lcd-amber {
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
 }
 
 /* Custom Scrollbar for Corporate UI */

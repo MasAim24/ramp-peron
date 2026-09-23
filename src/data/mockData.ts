@@ -11,7 +11,7 @@ import {
 
 export const initialCompanySettings: CompanySettings = {
   name: 'CV. SAWIT MAKMUR ABADI',
-  tagline: 'Peron Pengumpulan TBS & Jembatan Timbang Komersial',
+  tagline: 'Peron Pengumpulan TBS & Jembatan Timbang Komersial (Milik Bapak Sameno)',
   licenseNumber: 'NIB: 9120308129482 | TERA METROLOGI: 510.3/DISPERINDAG/2026',
   address: 'Jl. Poros Lintas Sawit Km. 42, Desa Sukamaju',
   district: 'Kecamatan Tapung Hilir',

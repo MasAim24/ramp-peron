@@ -131,28 +131,54 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
         </div>
       </div>
 
-      {/* Main App Bar & Navigation */}
-      <div className="px-4 py-2.5 flex items-center justify-between gap-4">
-        {/* Brand & Corporate Logo */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-emerald-700 flex items-center justify-center text-white shadow-md border border-emerald-600">
+      {/* Row 2: Dedicated Brand & Corporate Identity Header */}
+      <div className="px-5 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        {/* Brand, CV Name & Milik Bapak Sameno Notice */}
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white shadow-md border border-emerald-500/80 shrink-0">
             <Scale className="w-5 h-5 text-white" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-bold text-sm tracking-wide text-zinc-900 dark:text-zinc-100 uppercase">{companySettings.name}</h1>
-              <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-mono border border-zinc-200 dark:border-zinc-700">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <h1 className="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900 dark:text-zinc-100 uppercase">
+                {companySettings.name}
+              </h1>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800/80 text-xs font-bold tracking-wide shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400"></span>
+                Milik Bapak Sameno
+              </span>
+              <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-mono border border-zinc-200 dark:border-zinc-700 font-semibold hidden sm:inline">
                 ENTERPRISE V1.0
               </span>
             </div>
-            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate max-w-[260px] sm:max-w-md">
-              {companySettings.tagline}
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+              <span>{companySettings.tagline}</span>
+              <span className="hidden md:inline text-zinc-300 dark:text-zinc-700">•</span>
+              <span className="hidden md:inline text-zinc-500 dark:text-zinc-400 font-mono text-[11px]">{companySettings.licenseNumber}</span>
             </p>
           </div>
         </div>
 
-        {/* Navigation Tabs */}
-        <nav className="flex items-center gap-1 overflow-x-auto py-1">
+        {/* Right: Peron Operational Status Summary */}
+        <div className="hidden lg:flex items-center gap-4 text-xs">
+          <div className="text-right">
+            <div className="text-[11px] text-zinc-500 dark:text-zinc-400">Wilayah Operasional</div>
+            <div className="font-semibold text-zinc-800 dark:text-zinc-200">{companySettings.district}, {companySettings.regency}</div>
+          </div>
+          <div className="h-8 w-px bg-zinc-200 dark:bg-zinc-800"></div>
+          <div className="text-right">
+            <div className="text-[11px] text-zinc-500 dark:text-zinc-400">Status Metrologi</div>
+            <div className="inline-flex items-center gap-1 font-bold text-emerald-700 dark:text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              TERA SAH BERLAKU
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 3: Dedicated Feature Navigation Bar (Placed below identity to avoid squishing) */}
+      <div className="px-4 py-1.5 bg-zinc-50/90 dark:bg-zinc-950/80 border-t border-zinc-200 dark:border-zinc-800/80">
+        <nav className="flex items-center gap-1.5 overflow-x-auto py-0.5">
           {navItems.map(item => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -160,16 +186,20 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`relative flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                className={`relative flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? 'bg-emerald-50 dark:bg-zinc-800 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-zinc-700/80 shadow-2xs font-bold'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/50'
+                    ? 'bg-emerald-600 text-white shadow-xs font-bold'
+                    : 'text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/70 dark:hover:bg-zinc-800'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-400 dark:text-zinc-500'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-zinc-500 dark:text-zinc-400'}`} />
                 <span>{item.label}</span>
                 {item.badge > 0 && (
-                  <span className="px-1.5 py-0.5 text-[10px] rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 font-bold ml-0.5">
+                  <span className={`px-1.5 py-0.2 text-[10px] rounded-full font-bold ml-0.5 ${
+                    isActive 
+                      ? 'bg-white text-emerald-800' 
+                      : 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30'
+                  }`}>
                     {item.badge}
                   </span>
                 )}
