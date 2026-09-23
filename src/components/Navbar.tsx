@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   return (
     <header className="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 select-none shadow-sm transition-colors">
       {/* Top Corporate Status Bar */}
-      <div className="px-4 py-1.5 bg-zinc-100 dark:bg-zinc-950 flex flex-wrap items-center justify-between text-xs text-zinc-600 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800/80 gap-2">
+      <div className="px-5 py-2 bg-zinc-100 dark:bg-zinc-950 flex flex-wrap items-center justify-between text-xs text-zinc-600 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800/80 gap-2 min-h-[38px]">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 font-medium text-zinc-800 dark:text-zinc-300">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -132,45 +132,54 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
       </div>
 
       {/* Row 2: Dedicated Brand & Corporate Identity Header */}
-      <div className="px-5 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div className="px-5 py-3 flex items-center justify-between gap-4">
         {/* Brand, CV Name & Milik Bapak Sameno Notice */}
-        <div className="flex items-center gap-3.5">
+        <div className="flex items-center gap-3.5 min-w-0">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white shadow-md border border-emerald-500/80 shrink-0">
             <Scale className="w-5 h-5 text-white" />
           </div>
-          <div>
+          <div className="min-w-0">
+            {/* Baris 1: Nama CV + Badge Pemilik + Enterprise */}
             <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900 dark:text-zinc-100 uppercase">
+              <h1 className="font-extrabold text-base sm:text-lg tracking-tight text-zinc-900 dark:text-zinc-100 uppercase truncate">
                 {companySettings.name}
               </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800/80 text-xs font-bold tracking-wide shadow-2xs">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800/80 text-xs font-bold tracking-wide shrink-0 shadow-2xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400"></span>
                 Milik Bapak Sameno
               </span>
-              <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-mono border border-zinc-200 dark:border-zinc-700 font-semibold hidden sm:inline">
+              <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-mono border border-zinc-200 dark:border-zinc-700 font-semibold shrink-0 hidden sm:inline">
                 ENTERPRISE V1.0
               </span>
             </div>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+
+            {/* Baris 2: Subtitle Bersih & Rapi (Tanpa Teks Berulang) */}
+            <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
               <span>{companySettings.tagline}</span>
-              <span className="hidden md:inline text-zinc-300 dark:text-zinc-700">•</span>
-              <span className="hidden md:inline text-zinc-500 dark:text-zinc-400 font-mono text-[11px]">{companySettings.licenseNumber}</span>
-            </p>
+              <span className="text-zinc-300 dark:text-zinc-700">•</span>
+              <span>{companySettings.district}, {companySettings.regency}</span>
+              <span className="text-zinc-300 dark:text-zinc-700 hidden md:inline">•</span>
+              <span className="font-mono text-[11px] text-zinc-400 dark:text-zinc-500 hidden md:inline">
+                {companySettings.licenseNumber.split('|')[0]?.trim()}
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Right: Peron Operational Status Summary */}
-        <div className="hidden lg:flex items-center gap-4 text-xs">
-          <div className="text-right">
-            <div className="text-[11px] text-zinc-500 dark:text-zinc-400">Wilayah Operasional</div>
-            <div className="font-semibold text-zinc-800 dark:text-zinc-200">{companySettings.district}, {companySettings.regency}</div>
-          </div>
-          <div className="h-8 w-px bg-zinc-200 dark:bg-zinc-800"></div>
-          <div className="text-right">
-            <div className="text-[11px] text-zinc-500 dark:text-zinc-400">Status Metrologi</div>
-            <div className="inline-flex items-center gap-1 font-bold text-emerald-700 dark:text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              TERA SAH BERLAKU
+        {/* Right: Peron Operational & Metrology Badge (Kompak dan Sejajar di Kanan) */}
+        <div className="hidden lg:flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3.5 px-3.5 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-800">
+            <div className="text-right">
+              <span className="text-[10px] uppercase font-semibold text-zinc-400 dark:text-zinc-500 block">Metrologi Legal</span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                TERA SAH 2026
+              </span>
+            </div>
+            <div className="h-6 w-px bg-zinc-200 dark:bg-zinc-700"></div>
+            <div className="text-right">
+              <span className="text-[10px] uppercase font-semibold text-zinc-400 dark:text-zinc-500 block">Status Peron</span>
+              <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Siap Operasi</span>
             </div>
           </div>
         </div>

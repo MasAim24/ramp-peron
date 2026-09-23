@@ -108,8 +108,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [scaleConfig, setScaleConfig] = useState<ScaleConfig>(() => loadStored('scale', initialScaleConfig));
   const [companySettings, setCompanySettings] = useState<CompanySettings>(() => {
     const loaded = loadStored('company', initialCompanySettings);
-    if (loaded && !loaded.tagline.includes('Bapak Sameno')) {
-      loaded.tagline = `${loaded.tagline} (Milik Bapak Sameno)`;
+    if (loaded && loaded.tagline) {
+      loaded.tagline = loaded.tagline.replace(/\s*\(Milik Bapak Sameno\)/gi, '').trim();
     }
     return loaded;
   });
